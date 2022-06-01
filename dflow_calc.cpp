@@ -1,6 +1,7 @@
 /* 046267 Computer Architecture - Winter 20/21 - HW #3               */
 /* Implementation (skeleton)  for the dataflow statistics calculator */
-
+#define MAX_REG 32
+#define NO_WRITE_OP -1
 #include "dflow_calc.h"
 #include <cstdlib>
 #include <iostream>
@@ -47,15 +48,40 @@ public:
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
     Graph g;
+    map<int, int> reg_dict; // reg_dict[reg] = last_write_op by index 
+    map<int, bool> no_other_dep;
     int entry = -1;
     int exit = -2;
-    g.add_edge(entry, 0, 0);
     int i;
-    for(i = 0; i < numOfInsts - 1 ; i++){
-        g.add_edge(i, i+1, 0);
-
+    for(i = 0; i < MAX_REG; i++) {
+        reg_dict[i] = NO_WRITE_OP;
+        no_other_dep[i] = true; // for exit edge
     }
-    g.add_edge(i, exit, 0);
+    /// initialize dict with no write op
+    for(i = 0; i < numOfInsts ; i++){
+        bool no_dep = true;
+        reg_dict[progTrace[i].dstIdx] = i; //update dict[dst_reg] last write op
+        if(reg_dict[progTrace[i].src1Idx] != NO_WRITE_OP){
+            int last_write_op = reg_dict[progTrace[i].src1Idx];
+            g.add_edge(i, last_write_op, opsLatency[i]);
+            no_other_dep[opsLatency[i]] = false;
+            no_dep = false;    
+        }
+        if(reg_dict[progTrace[i].src1Idx] != NO_WRITE_OP){
+            int last_write_op = reg_dict[progTrace[i].src1Idx];
+            g.add_edge(i, last_write_op, opsLatency[i]);
+            no_other_dep[opsLatency[i]] = false;
+            no_dep = false;    
+        }
+        if(no_dep) { // for entry edge
+            g.add_edge(i, entry, opsLatency[i]);
+        } 
+    }
+    for(i = 0; i < numOfInsts ; i++){
+        if(no_other_dep[opsLatency[i]]) {
+            g.add_edge(exit, i, 0);
+        }
+    }
     g.print_graph();
     return PROG_CTX_NULL;
 }
