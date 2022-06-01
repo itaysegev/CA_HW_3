@@ -55,7 +55,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
 
     }
     g.add_edge(progTrace[i], exit, 0);
-    g.print_graph();
+    // g.print_graph();
     return PROG_CTX_NULL;
 }
 
