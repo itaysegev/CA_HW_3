@@ -38,7 +38,7 @@ public:
             for(auto nbr : neighbour)
             {
                 int dest = nbr.first;
-                int distance = nbr.second;
+                double distance = nbr.second;
  
                 cout << "Neighbour: " << dest << " " << " Distance: "<< distance << endl;
             }
