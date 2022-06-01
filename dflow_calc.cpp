@@ -82,7 +82,6 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             g.add_edge(exit, i, 0);
         }
     }
-    g.print_graph();
     return &g;
 }
 
