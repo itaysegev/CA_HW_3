@@ -14,48 +14,49 @@ using namespace std;
 
 class Graph
 {
-    map<InstInfo, list <pair <InstInfo, int>>> l; // adjacency list
+    map<int, list <pair <int, int>>> l; // adjacency list
 public:
-    void add_edge(InstInfo node, InstInfo neighbour, int distance) {
+    void add_edge(int node, int neighbour, int distance) {
         l[node].push_back(make_pair(neighbour, distance));
     }
  
-    // void print_graph()
-    // {
-    //     // now we will iterate over all the keys in the map
-    //     // then we will print the linked list of neighbors
-    //     // associated with these nodes
-    //     for(auto p : l)
-    //     {
-    //         // iterate over all the neighbors of this particular node
-    //         InstInfo node = p.first;
-    //         list <pair <InstInfo, int>> neighbour = p.second;
+    void print_graph()
+    {
+        // now we will iterate over all the keys in the map
+        // then we will print the linked list of neighbors
+        // associated with these nodes
+        for(auto p : l)
+        {
+            // iterate over all the neighbors of this particular node
+            int node = p.first;
+            list <pair <int, int>> neighbour = p.second;
  
-    //         cout << "Neighbors of: " << node.opcode << " are:\n";
+            cout << "Neighbors of: " << node << " are:\n";
  
-    //         for(auto nbr : neighbour)
-    //         {
-    //             InstInfo dest = nbr.first;
-    //             int distance = nbr.second;
+            for(auto nbr : neighbour)
+            {
+                int dest = nbr.first;
+                int distance = nbr.second;
  
-    //             cout << "Neighbour: " << dest.opcode << " " << " Distance: "<< distance << endl;
-    //         }
-    //         cout << endl;
-    //     }
-    // }
+                cout << "Neighbour: " << dest << " " << " Distance: "<< distance << endl;
+            }
+            cout << endl;
+        }
+    }
 };
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
     Graph g;
-    InstInfo entry, exit;
-    g.add_edge(entry, progTrace[0], 0);
+    int entry = -1;
+    int exit = -2;
+    g.add_edge(entry, 0, 0);
     int i;
     for(i = 0; i < numOfInsts - 1 ; i++){
-        g.add_edge(progTrace[i], progTrace[i+1], 0);
+        g.add_edge(i, i+1, 0);
 
     }
-    g.add_edge(progTrace[i], exit, 0);
-    // /g.print_graph();
+    g.add_edge(i, exit, 0);
+    g.print_graph();
     return PROG_CTX_NULL;
 }
 
