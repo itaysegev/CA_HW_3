@@ -45,22 +45,28 @@ public:
             cout << endl;
         }
     }
-    // pair<int, int> getDeps(unsigned int theInst) {
-    //     for(auto p : l)
-    //     {
-    //         // iterate over all the neighbors of this particular node
-    //         int node = p.first;
-    //         list <pair <int, int>> neighbour = p.second;
-    //         for(auto nbr : neighbour)
-    //         {
-    //             int dest = nbr.first;
-    //             int distance = nbr.second;
- 
-    //             cout << "Neighbour: " << dest << " " << " Distance: "<< distance << endl;
-    //         }
-    //         cout << endl;
-    //     }
-    // }
+    pair<int, int> getDeps(unsigned int theInst) {
+        for(auto p : l) {
+            // iterate over all the neighbors of this particular node
+            int node = p.first;
+            list <pair <int, double>> neighbour = p.second;
+            pair<int, int> deps;
+            deps.first = -1;
+            deps.second = -1;
+            for(auto nbr : neighbour) {
+                int dest = nbr.first;
+                double distance = nbr.second;
+                int clean_distance = nbr.second;
+                if(distance - clean_distance > 0.1) {
+                    deps.second = dest;
+                }
+                else {
+                    deps.first = dest;
+                }
+            }
+            return deps;
+        }
+    }
 };
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
@@ -113,6 +119,12 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
     Graph g = *(Graph*)ctx;
+    pair<int, int> deps = g.getDeps(theInst);
+    *src1DepInst = deps.first;
+    *src2DepInst = deps.second;
+    cout << *src1DepInst << endl;
+    cout << *src2DepInst << endl;
+    return -1;
 }
 
 int getProgDepth(ProgCtx ctx) {
