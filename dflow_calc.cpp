@@ -45,6 +45,7 @@ public:
             cout << endl;
         }
     }
+    
     pair<int, int> getDeps(unsigned int theInst) {
         for(auto p : l) {
             // iterate over all the neighbors of this particular node
@@ -55,6 +56,8 @@ public:
             deps.second = -1;
             for(auto nbr : neighbour) {
                 int dest = nbr.first;
+                cout << "AAAA" << endl;
+                cout << dest << endl;
                 double distance = nbr.second;
                 int clean_distance = nbr.second;
                 if(distance - clean_distance > 0.1) {
