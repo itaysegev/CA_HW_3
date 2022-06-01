@@ -47,7 +47,7 @@ public:
 };
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
-    Graph g;
+    Graph* g = new Graph;
     map<int, int> reg_dict; // reg_dict[reg] = last_write_op by index 
     map<int, bool> no_other_dep;
     int entry = -1;
@@ -62,24 +62,24 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
         bool no_dep = true;
         if(reg_dict[progTrace[i].src1Idx] != NO_WRITE_OP){
             int last_write_op = reg_dict[progTrace[i].src1Idx];
-            g.add_edge(i, last_write_op, opsLatency[i]);
+            (*g).add_edge(i, last_write_op, opsLatency[i]);
             no_other_dep[last_write_op] = false;
             no_dep = false;    
         }
         if(reg_dict[progTrace[i].src2Idx] != NO_WRITE_OP){
             int last_write_op = reg_dict[progTrace[i].src2Idx];
-            g.add_edge(i, last_write_op, opsLatency[i]);
+            (*g).add_edge(i, last_write_op, opsLatency[i]);
             no_other_dep[last_write_op] = false;
             no_dep = false;    
         }
         if(no_dep) { // for entry edge
-            g.add_edge(i, entry, opsLatency[i]);
+            (*g).add_edge(i, entry, opsLatency[i]);
         }
         reg_dict[progTrace[i].dstIdx] = i; //update dict[dst_reg] last write op 
     }
     for(i = 0; i < numOfInsts ; i++){
         if(no_other_dep[i]) {
-            g.add_edge(exit, i, 0);
+            (*g).add_edge(exit, i, 0);
         }
     }
     return &g;
