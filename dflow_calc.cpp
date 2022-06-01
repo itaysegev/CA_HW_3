@@ -67,8 +67,8 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             no_other_dep[opsLatency[i]] = false;
             no_dep = false;    
         }
-        if(reg_dict[progTrace[i].src1Idx] != NO_WRITE_OP){
-            int last_write_op = reg_dict[progTrace[i].src1Idx];
+        if(reg_dict[progTrace[i].src2Idx] != NO_WRITE_OP){
+            int last_write_op = reg_dict[progTrace[i].src2Idx];
             g.add_edge(i, last_write_op, opsLatency[i]);
             no_other_dep[opsLatency[i]] = false;
             no_dep = false;    
