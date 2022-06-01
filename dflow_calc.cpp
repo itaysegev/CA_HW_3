@@ -82,7 +82,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             (*g).add_edge(exit, i, 0);
         }
     }
-    return &g;
+    return g;
 }
 
 void freeProgCtx(ProgCtx ctx) {
