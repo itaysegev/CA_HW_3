@@ -95,10 +95,14 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
 }
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
+    Graph* g = (Graph*)ctx;
+    (*g).print_graph();
     return -1;
 }
 
 int getProgDepth(ProgCtx ctx) {
+    Graph* g = (Graph*)ctx;
+    (*g).print_graph();
     return 0;
 }
 
