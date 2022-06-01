@@ -15,9 +15,9 @@ using namespace std;
 
 class Graph
 {
-    map<int, list <pair <int, int>>> l; // adjacency list
+    map<int, list <pair <int, double>>> l; // adjacency list
 public:
-    void add_edge(int node, int neighbour, int distance) {
+    void add_edge(int node, int neighbour, double distance) {
         l[node].push_back(make_pair(neighbour, distance));
     }
  
@@ -33,7 +33,8 @@ public:
             list <pair <int, int>> neighbour = p.second;
  
             cout << "Neighbors of: " << node << " are:\n";
- 
+            pair<int, int> deps;
+            
             for(auto nbr : neighbour)
             {
                 int dest = nbr.first;
@@ -44,6 +45,22 @@ public:
             cout << endl;
         }
     }
+    // pair<int, int> getDeps(unsigned int theInst) {
+    //     for(auto p : l)
+    //     {
+    //         // iterate over all the neighbors of this particular node
+    //         int node = p.first;
+    //         list <pair <int, int>> neighbour = p.second;
+    //         for(auto nbr : neighbour)
+    //         {
+    //             int dest = nbr.first;
+    //             int distance = nbr.second;
+ 
+    //             cout << "Neighbour: " << dest << " " << " Distance: "<< distance << endl;
+    //         }
+    //         cout << endl;
+    //     }
+    // }
 };
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
@@ -62,13 +79,13 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
         bool no_dep = true;
         if(reg_dict[progTrace[i].src1Idx] != NO_WRITE_OP){
             int last_write_op = reg_dict[progTrace[i].src1Idx];
-            (*g).add_edge(i, last_write_op, opsLatency[i]);
+            (*g).add_edge(i, last_write_op, opsLatency[i] + 0.1);
             no_other_dep[last_write_op] = false;
             no_dep = false;    
         }
         if(reg_dict[progTrace[i].src2Idx] != NO_WRITE_OP){
             int last_write_op = reg_dict[progTrace[i].src2Idx];
-            (*g).add_edge(i, last_write_op, opsLatency[i]);
+            (*g).add_edge(i, last_write_op, opsLatency[i] + 0.2);
             no_other_dep[last_write_op] = false;
             no_dep = false;    
         }
@@ -95,7 +112,7 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
 }
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
-    return -1;
+    Graph g = *(Graph*)ctx;
 }
 
 int getProgDepth(ProgCtx ctx) {
