@@ -122,9 +122,10 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = g.getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
+    cout << theInst << endl;
     cout << *src1DepInst << endl;
     cout << *src2DepInst << endl;
-    return -1;
+    return 1;
 }
 
 int getProgDepth(ProgCtx ctx) {
