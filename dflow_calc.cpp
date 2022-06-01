@@ -90,7 +90,8 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
-    (*ctx).print_graph();
+    Graph* g = (Graph*)ctx;
+    (*g).print_graph();
     return -1;
 }
 
