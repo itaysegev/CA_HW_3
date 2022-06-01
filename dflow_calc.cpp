@@ -47,27 +47,27 @@ public:
     }
     
     pair<int, int> getDeps(unsigned int theInst) {
+        pair<int, int> deps;
+        deps.first = -1;
+        deps.second = -1;
         for(auto p : l) {
             // iterate over all the neighbors of this particular node
             int node = p.first;
-            list <pair <int, double>> neighbour = p.second;
-            pair<int, int> deps;
-            deps.first = -1;
-            deps.second = -1;
-            for(auto nbr : neighbour) {
-                int dest = nbr.first;
-                cout << "AAAA" << endl;
-                cout << dest << endl;
-                double distance = nbr.second;
-                int clean_distance = nbr.second;
-                if(distance - clean_distance > 0.1) {
-                    deps.second = dest;
+            if(node == theInst) {
+                list <pair <int, double>> neighbour = p.second;
+                for(auto nbr : neighbour) {
+                    int dest = nbr.first;
+                    double distance = nbr.second;
+                    int clean_distance = nbr.second;
+                    if(distance - clean_distance > 0.1) {
+                        deps.second = dest;
+                    }
+                    else {
+                        deps.first = dest;
+                    }
                 }
-                else {
-                    deps.first = dest;
-                }
+                return deps;
             }
-            return deps;
         }
     }
 };
