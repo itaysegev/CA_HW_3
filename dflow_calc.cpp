@@ -89,6 +89,7 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
+    cout << "SSSS" << endl;
     Graph* g = (Graph*)ctx;
     (*g).print_graph();
     return -1;
@@ -101,8 +102,6 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 }
 
 int getProgDepth(ProgCtx ctx) {
-    Graph* g = (Graph*)ctx;
-    (*g).print_graph();
     return 0;
 }
 
