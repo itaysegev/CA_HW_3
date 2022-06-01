@@ -20,29 +20,29 @@ public:
         l[node].push_back(make_pair(neighbour, distance));
     }
  
-    void print_graph()
-    {
-        // now we will iterate over all the keys in the map
-        // then we will print the linked list of neighbors
-        // associated with these nodes
-        for(auto p : l)
-        {
-            // iterate over all the neighbors of this particular node
-            InstInfo node = p.first;
-            list <pair <InstInfo, int>> neighbour = p.second;
+    // void print_graph()
+    // {
+    //     // now we will iterate over all the keys in the map
+    //     // then we will print the linked list of neighbors
+    //     // associated with these nodes
+    //     for(auto p : l)
+    //     {
+    //         // iterate over all the neighbors of this particular node
+    //         InstInfo node = p.first;
+    //         list <pair <InstInfo, int>> neighbour = p.second;
  
-            cout << "Neighbors of: " << node.opcode << " are:\n";
+    //         cout << "Neighbors of: " << node.opcode << " are:\n";
  
-            for(auto nbr : neighbour)
-            {
-                InstInfo dest = nbr.first;
-                int distance = nbr.second;
+    //         for(auto nbr : neighbour)
+    //         {
+    //             InstInfo dest = nbr.first;
+    //             int distance = nbr.second;
  
-                cout << "Neighbour: " << dest.opcode << " " << " Distance: "<< distance << endl;
-            }
-            cout << endl;
-        }
-    }
+    //             cout << "Neighbour: " << dest.opcode << " " << " Distance: "<< distance << endl;
+    //         }
+    //         cout << endl;
+    //     }
+    // }
 };
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
@@ -55,7 +55,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
 
     }
     g.add_edge(progTrace[i], exit, 0);
-    // g.print_graph();
+    // /g.print_graph();
     return PROG_CTX_NULL;
 }
 
