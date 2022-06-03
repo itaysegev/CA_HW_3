@@ -92,7 +92,7 @@ public:
             int u = *i; //the minimum element from queue
             Q.remove(u); 
             S.insert(u); //add u in the set
-            list<pair<int, int>> :: iterator it;
+            list<pair<int, double>> :: iterator it;
             for(it = g.l[u].begin(); it != g.l[u].end();it++) {
                 if((dist[u]+(it->second)) < dist[it->first]) { //relax (u,v)
                     dist[it->first] = (dist[u]+(it->second));
@@ -152,6 +152,7 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.size], prev[g.size];
     int start = g.exit_index;
+    g.print_graph();
     for(int i = 0; i<g.size; i++) {
         if(i != start) {
             cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
