@@ -106,7 +106,7 @@ class Graph {
         list<node> lt = adjList[theInst];
         list<node> :: iterator i;
         for(i = lt.begin(); i != lt.end(); i++) {
-            if((*i).cost_by_src - (*i).cost > 0.1) {
+            if((*i).cost - (*i).cost_by_src > 0.1) {
                 deps.second = (*i).dest;
             }
             else {
