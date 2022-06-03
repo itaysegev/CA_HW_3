@@ -92,7 +92,7 @@ public:
             int u = *i; //the minimum element from queue
             Q.remove(u); 
             S.insert(u); //add u in the set
-            list<pair<int, double>> :: iterator it;
+            list<pair<int, int>> :: iterator it;
             for(it = g.l[u].begin(); it != g.l[u].end();it++) {
                 if((dist[u]+(it->second)) < dist[it->first]) { //relax (u,v)
                     dist[it->first] = (dist[u]+(it->second));
