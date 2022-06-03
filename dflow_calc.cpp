@@ -109,10 +109,11 @@ class Graph {
             cout << (*i).cost << endl;
             cout <<  (*i).cost_by_src << endl;
             cout << (*i).dest << endl;
-            if((*i).cost_by_src - (*i).cost > 0.1) {
+            if(((*i).cost_by_src - (*i).cost) == 0.2) {
                 deps.second = (*i).dest;
             }
             else {
+                cout << (*i).dest << endl;
                 deps.first = (*i).dest;
             } 
         }
