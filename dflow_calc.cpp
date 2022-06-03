@@ -116,14 +116,14 @@ class Graph {
    list<node> *adjList;
    private:
       void showList(int src, list<node> lt) {
-         list<node> :: iterator i;
-         node tempNode;
+        list<node> :: iterator i;
+        node tempNode;
 
-         for(i = lt.begin(); i != lt.end(); i++) {
+        for(i = lt.begin(); i != lt.end(); i++) {
             tempNode = *i;
             cout << "(" << src << ")---("<<tempNode.dest << "|"<<tempNode.cost<<") ";
-         }
-         cout << endl;
+        }
+        cout << endl;
       }
    public:
     int n;
@@ -153,6 +153,21 @@ class Graph {
             list<node> tempList = adjList[i];
             showList(i, tempList);
         }
+    }
+    pair<int, int> getDeps(unsigned int theInst) {
+        pair<int, int> deps;
+        deps.first = -1;
+        deps.second = -1;
+        list<node> lt = adjList[theInst];
+        list<node> :: iterator i;
+        for(i = lt.begin(); i != lt.end(); i++) {
+            if((*i).cost_by_src - (*i).cost > 0.1) {
+                deps.second = (*i).dest;
+            }
+            else {
+                deps.first = (*i).dest;
+            } 
+        } 
     }
     friend void dijkstra(Graph g, int *dist, int *prev, int start);
 };
@@ -239,7 +254,7 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.n], prev[g.n];
-    int start = 0;
+    int start = 11;
     // g.print_graph();
     dijkstra(g, dist, prev, start);
     for(int i = 0; i<g.n; i++) {
@@ -256,9 +271,9 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
         return -1;
     }
     g.displayEdges();
-    // pair<int, int> deps = g.getDeps(theInst);
-    // *src1DepInst = deps.first;
-    // *src2DepInst = deps.second;
+    pair<int, int> deps = g.getDeps(theInst);
+    *src1DepInst = deps.first;
+    *src2DepInst = deps.second;
     return 0;
 }
 
