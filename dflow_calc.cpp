@@ -135,8 +135,8 @@ class Graph {
 
     Graph(int nodeCount) {
         n = nodeCount;
-        entry_index = n - 1;
-        exit_index = n;
+        entry_index = n - 2;
+        exit_index = n - 1;
         adjList = new list<node>[n];
     }
 
