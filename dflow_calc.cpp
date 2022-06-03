@@ -222,12 +222,6 @@ class Graph {
                 }
             }
         }
-        printMat();
-        cout<<"Vertex\t\tDistance from source vertex"<<endl;
-        for(int k = 0; k < n; k++)                      
-        { 
-            cout<<k<<"\t\t\t"<<distance[k]<<endl;
-        }
     }
 };  
 
@@ -276,6 +270,11 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.n];
     g.DijkstraAlgo(dist, 11);
+    cout<<"Vertex\t\tDistance from source vertex"<<endl;
+        for(int k = 0; k < g.n; k++)                      
+        { 
+            cout<<k<<"\t\t\t"<<dist[k]<<endl;
+        }
     return -1;
 }
 
