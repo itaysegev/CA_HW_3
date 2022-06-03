@@ -17,97 +17,6 @@
 
 using namespace std;
 
-// class Graph {
-//     map<int, list <pair <int, double>>> l; // adjacency list
-//     map<int, list <pair <int, int>>> adj;
-// public:
-//     int size;
-//     int entry_index;
-//     int exit_index;
-//     void add_edge(int node, int neighbour, double distance) {
-//         adj[node].push_back(make_pair(neighbour, distance));
-//         l[node].push_back(make_pair(neighbour, distance));
-//     }
- 
-//     void print_graph()
-//     {
-//         // now we will iterate over all the keys in the map
-//         // then we will print the linked list of neighbors
-//         // associated with these nodes
-//         for(auto p : adj)
-//         {
-//             // iterate over all the neighbors of this particular node
-//             int node = p.first;
-//             list <pair <int, int>> neighbour = p.second;
- 
-//             cout << "Neighbors of: " << node << " are:\n";
-//             pair<int, int> deps;
-            
-//             for(auto nbr : neighbour)
-//             {
-//                 int dest = nbr.first;
-//                 int distance = nbr.second;
- 
-//                 cout << "Neighbour: " << dest << " " << " Distance: "<< distance << endl;
-//             }
-//             cout << endl;
-//         }
-//     }
-    
-//     pair<int, int> getDeps(unsigned int theInst) {
-//         pair<int, int> deps;
-//         deps.first = -1;
-//         deps.second = -1;
-//         for(auto p : l) {
-//             int node = p.first;
-//             if(node == theInst) {
-//                 list <pair <int, double>> neighbour = p.second;
-//                 for(auto nbr : neighbour) { // iterate over all the neighbors of this particular node
-//                     int dest = nbr.first;
-//                     double distance = nbr.second;
-//                     int clean_distance = nbr.second;
-//                     if(distance - clean_distance > 0.1) {
-//                         deps.second = dest;
-//                     }
-//                     else {
-//                         deps.first = dest;
-//                     }
-//                 }
-//                 return deps;
-//             }
-//         }
-//     }
-
-//     void dijkstra(Graph g, int *dist, int *prev, int start){
-//         for(int u = 0; u < g.size; u++) {
-//             dist[u] = 9999;   //set as infinity
-//             prev[u] = -1;    //undefined previous
-//         }
-//         dist[start] = 0;   //distance of start is 0
-//         set<int> S;       //create empty set S
-//         list<int> Q;
-
-//         for(int u = 0; u < g.size; u++) {
-//             Q.push_back(u);    //add each node into queue
-//         }
-//         while(!Q.empty()) {
-//             list<int> :: iterator i;
-//             i = min_element(Q.begin(), Q.end());
-//             int u = *i; //the minimum element from queue
-//             cout << u << endl;
-//             Q.remove(u); 
-//             S.insert(u); //add u in the set
-//             list<pair<int, int>> :: iterator it;
-//             for(it = g.adj[u].begin(); it != g.adj[u].end();it++) {
-//                 if((dist[u]+(it->second)) < dist[it->first]) { //relax (u,v)
-//                     dist[it->first] = (dist[u]+(it->second));
-//                     prev[it->first] = u;
-//                 }
-//             }
-//         }
-//     }
-// };
-
 static int miniDist(int distance[], bool Tset[], int n) // finding minimum distance
 {
     int minimum=INT_MAX;
@@ -269,13 +178,8 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.n];
-    g.DijkstraAlgo(dist, 11);
-    cout<<"Vertex\t\tDistance from source vertex"<<endl;
-        for(int k = 0; k < g.n; k++)                      
-        { 
-            cout<<k<<"\t\t\t"<<dist[k]<<endl;
-        }
-    return -1;
+    g.DijkstraAlgo(dist, theInst);
+    return  (-1 * dist[g.entry_index]);
 }
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
@@ -290,7 +194,8 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 }
 
 int getProgDepth(ProgCtx ctx) {
-    return 0;
+    int exit = (*(Graph*)ctx).exit_index;
+    return getInstDepth(ctx, exit);
 }
 
 
