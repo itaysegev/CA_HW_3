@@ -162,7 +162,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             no_dep = false;    
         }
         if(no_dep) { // for entry edge
-            (*g).addEdge(i, entry, opsLatency[op]);
+            (*g).addEdge(i, entry, opsLatency[opcode]);
         }
         reg_dict[progTrace[i].dstIdx] = i; //update dict[dst_reg] last write op 
     }
