@@ -286,14 +286,14 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
 }
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
-    // Graph g = *(Graph*)ctx;
-    // if (theInst < 0 ){
-    //     return -1;
-    // }
-    // g.displayEdges();
-    // pair<int, int> deps = g.getDeps(theInst);
-    // *src1DepInst = deps.first;
-    // *src2DepInst = deps.second;
+    Graph g = *(Graph*)ctx;
+    if (theInst < 0 ){
+        return -1;
+    }
+    g.displayEdges();
+    pair<int, int> deps = g.getDeps(theInst);
+    *src1DepInst = deps.first;
+    *src2DepInst = deps.second;
     return 0;
 }
 
