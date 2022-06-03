@@ -162,7 +162,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             no_dep = false;    
         }
         if(no_dep) { // for entry edge
-            (*g).addEdge(i, entry, opsLatency[opcode]);
+            (*g).addEdge(i, entry, opsLatency[op]);
         }
         reg_dict[progTrace[i].dstIdx] = i; //update dict[dst_reg] last write op 
     }
@@ -196,6 +196,8 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 }
 
 int getProgDepth(ProgCtx ctx) {
+    Graph g = *(Graph*)ctx;
+    g.displayEdges();
     int exit = (*(Graph*)ctx).exit_index;
     return getInstDepth(ctx, exit);
 }
