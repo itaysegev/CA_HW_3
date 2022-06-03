@@ -2,6 +2,7 @@
 /* Implementation (skeleton)  for the dataflow statistics calculator */
 #define MAX_REG 32
 #define NO_WRITE_OP -1
+#define INT_MAX 99999
 #include "dflow_calc.h"
 #include <cstdlib>
 #include <iostream>
@@ -109,7 +110,8 @@ using namespace std;
 
 static int miniDist(int distance[], bool Tset[], int n) // finding minimum distance
 {
-    int minimum=INT_MAX,ind;
+    int minimum=INT_MAX;
+    int ind;
               
     for(int k=0; k<n; k++) 
     {
