@@ -141,9 +141,11 @@ class Graph {
         exit_index = n - 1;
         adjList = new list<node>[n];
         for (int i = 0; i < n; i++) {
+            vector<int> v;
             for(int j = 0; j < n; j++){
-                adjMatrix[i][j] = 0;
+                v.push_back(0);
             }
+            adjMatrix.push_back(v);
         }
     }
     // void printMat() {
