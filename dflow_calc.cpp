@@ -269,37 +269,37 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
-    Graph b = *(Graph*)ctx;
-    int n = 4;
-    // cout << n << endl;
-    Graph g(n);
-    int dist[g.n], prev[g.n];
-    int start = 0;
-    // g.addEdge(1, 2, 1);
-    // g.addEdge(0, 1, 1);
-    // g.addEdge(3, 2, 1);
-    // g.addEdge(3, 0, 4);
-    // g.addEdge(4, 0, 2);
-    // g.addEdge(4, 1, 2);
-    // g.addEdge(5, 3, 7);
-    // g.addEdge(5, 1, 7);
-    // g.addEdge(6, 2, 0);
-    // g.addEdge(6, 3, 0);
-    // g.addEdge(7, 0, 0);
-    // g.addEdge(7, 3, 0);
-    // g.addEdge(8, 6, 0);
-    // g.addEdge(8, 5, 0);
-    // g.addEdge(9, 8, 0);
-    // g.addEdge(9, 7, 0);
-    // g.addEdge(11, 9, 0);
-    // g.addEdge(11, 4, 0);
-    dijkstra(g, dist, prev, start);
-    g.displayEdges();
-    for(int i = 0; i<g.n; i++) {
-        if(i != start) {
-            cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
-        }
-    }
+    // Graph b = *(Graph*)ctx;
+    // int n = 4;
+    // // cout << n << endl;
+    // Graph g(n);
+    // int dist[g.n], prev[g.n];
+    // int start = 0;
+    // // g.addEdge(1, 2, 1);
+    // // g.addEdge(0, 1, 1);
+    // // g.addEdge(3, 2, 1);
+    // // g.addEdge(3, 0, 4);
+    // // g.addEdge(4, 0, 2);
+    // // g.addEdge(4, 1, 2);
+    // // g.addEdge(5, 3, 7);
+    // // g.addEdge(5, 1, 7);
+    // // g.addEdge(6, 2, 0);
+    // // g.addEdge(6, 3, 0);
+    // // g.addEdge(7, 0, 0);
+    // // g.addEdge(7, 3, 0);
+    // // g.addEdge(8, 6, 0);
+    // // g.addEdge(8, 5, 0);
+    // // g.addEdge(9, 8, 0);
+    // // g.addEdge(9, 7, 0);
+    // // g.addEdge(11, 9, 0);
+    // // g.addEdge(11, 4, 0);
+    // dijkstra(g, dist, prev, start);
+    // g.displayEdges();
+    // for(int i = 0; i<g.n; i++) {
+    //     if(i != start) {
+    //         cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
+    //     }
+    // }
     return -1;
 }
 
@@ -311,7 +311,7 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = g.getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
-    g.printMat();
+    // g.printMat();
     return 0;
 }
 
