@@ -256,7 +256,6 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g(n);
     int dist[g.n], prev[g.n];
     int start = 0;
-     g.print_graph();
     g.addEdge(0, 10, 1);
     g.addEdge(1, 10, 1);
     g.addEdge(2, 0, 1);
