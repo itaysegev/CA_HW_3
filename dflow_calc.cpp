@@ -167,7 +167,8 @@ class Graph {
             else {
                 deps.first = (*i).dest;
             } 
-        } 
+        }
+        return deps; 
     }
     friend void dijkstra(Graph g, int *dist, int *prev, int start);
 };
