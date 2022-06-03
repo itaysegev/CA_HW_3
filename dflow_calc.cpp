@@ -115,7 +115,7 @@ typedef struct nodes {
 
 class Graph {
    list<node> *adjList;
-   vector<vector<int>> adjMatrix;
+//    vector<vector<int>> adjMatrix;
    private:
       void showList(int src, list<node> lt) {
         list<node> :: iterator i;
@@ -146,14 +146,14 @@ class Graph {
         //     }
         // }
     }
-    void printMat() {
-        for (int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++){
-               cout << adjMatrix[i][j] << " ";
-            }
-            cout << "\n" << endl;
-        }
-    }
+    // void printMat() {
+    //     for (int i = 0; i < n; i++) {
+    //         for(int j = 0; j < n; j++){
+    //            cout << adjMatrix[i][j] << " ";
+    //         }
+    //         cout << "\n" << endl;
+    //     }
+    // }
     void addEdge(int source, int dest, double cost) {
         node newNode;
         newNode.dest = dest;
