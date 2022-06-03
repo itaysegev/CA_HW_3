@@ -107,6 +107,21 @@ using namespace std;
 //     }
 // };
 
+static int miniDist(int distance[], bool Tset[], int n) // finding minimum distance
+{
+    int minimum=INT_MAX,ind;
+              
+    for(int k=0; k<n; k++) 
+    {
+        if(Tset[k]==false && distance[k]<=minimum)      
+        {
+            minimum=distance[k];
+            ind=k;
+        }
+    }
+    return ind;
+}
+
 typedef struct nodes {
    int dest;
    int cost;
@@ -143,7 +158,7 @@ class Graph {
         for (int i = 0; i < n; i++) {
             vector<int> v;
             for(int j = 0; j < n; j++){
-                v.push_back(-1);
+                v.push_back(1);
             }
             adjMatrix.push_back(v);
         }
@@ -163,7 +178,7 @@ class Graph {
         newNode.cost = (int)cost; //convert to int
         newNode.cost_by_src = cost;
         adjList[source].push_back(newNode);
-        adjMatrix[source][dest] = (int)cost;
+        adjMatrix[source][dest] = -1 * (int)cost;
     }
 
     void displayEdges() {
@@ -188,9 +203,30 @@ class Graph {
         }
         return deps; 
     }
-
-    friend void dijkstra(Graph g, int *dist, int *prev, int start);
-};
+    void DijkstraAlgo(int* distance, int src) {                             
+        bool Tset[n];// boolean array to mark visited and unvisited for each node
+        for(int k = 0; k < n; k++) {
+            distance[k] = INT_MAX;
+            Tset[k] = false;    
+        }
+        distance[src] = 0;   // Source vertex distance is set 0               
+        for(int k = 0; k < n; k++) {
+            int m=miniDist(distance, Tset, n); 
+            Tset[m]=true;
+            for(int k = 0; k < n; k++) {
+                // updating the distance of neighbouring vertex
+                if(!Tset[k] && adjMatrix[m][k] && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
+                    distance[k] = distance[m] + adjMatrix[m][k];
+                }
+            }
+        }
+        cout<<"Vertex\t\tDistance from source vertex"<<endl;
+        for(int k = 0; k<6; k++)                      
+        { 
+            cout<<k<<"\t\t\t"<<distance[k]<<endl;
+        }
+    }
+};  
 
 void dijkstra(Graph g, int *dist, int *prev, int start) {
 
@@ -226,6 +262,7 @@ void dijkstra(Graph g, int *dist, int *prev, int start) {
 }
 
 
+
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
     Graph* g = new Graph(numOfInsts + 2);
     map<int, int> reg_dict; // reg_dict[reg] = last_write_op by index 
@@ -237,10 +274,6 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
         reg_dict[i] = NO_WRITE_OP;
         no_other_dep[i] = true; // for exit edge
     }
-    // (*g).entry_index = entry;
-    // (*g).exit_index = exit;
-    // (*g).size = numOfInsts + 2;
-    /// initialize dict with no write op
     for(i = 0; i < numOfInsts ; i++){
         bool no_dep = true;
         if(reg_dict[progTrace[i].src1Idx] != NO_WRITE_OP){
@@ -272,37 +305,9 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
-    // Graph b = *(Graph*)ctx;
-    // int n = 4;
-    // // cout << n << endl;
-    // Graph g(n);
-    // int dist[g.n], prev[g.n];
-    // int start = 0;
-    // // g.addEdge(1, 2, 1);
-    // // g.addEdge(0, 1, 1);
-    // // g.addEdge(3, 2, 1);
-    // // g.addEdge(3, 0, 4);
-    // // g.addEdge(4, 0, 2);
-    // // g.addEdge(4, 1, 2);
-    // // g.addEdge(5, 3, 7);
-    // // g.addEdge(5, 1, 7);
-    // // g.addEdge(6, 2, 0);
-    // // g.addEdge(6, 3, 0);
-    // // g.addEdge(7, 0, 0);
-    // // g.addEdge(7, 3, 0);
-    // // g.addEdge(8, 6, 0);
-    // // g.addEdge(8, 5, 0);
-    // // g.addEdge(9, 8, 0);
-    // // g.addEdge(9, 7, 0);
-    // // g.addEdge(11, 9, 0);
-    // // g.addEdge(11, 4, 0);
-    // dijkstra(g, dist, prev, start);
-    // g.displayEdges();
-    // for(int i = 0; i<g.n; i++) {
-    //     if(i != start) {
-    //         cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
-    //     }
-    // }
+    Graph g = *(Graph*)ctx;
+    int dist[g.n];
+    g.DijkstraAlgo(dist, 11);
     return -1;
 }
 
@@ -314,7 +319,6 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = g.getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
-    g.printMat();
     return 0;
 }
 
