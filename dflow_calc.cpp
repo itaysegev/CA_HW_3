@@ -148,14 +148,14 @@ class Graph {
             adjMatrix.push_back(v);
         }
     }
-    // void printMat() {
-    //     for (int i = 0; i < n; i++) {
-    //         for(int j = 0; j < n; j++){
-    //            cout << adjMatrix[i][j] << " ";
-    //         }
-    //         cout << "\n" << endl;
-    //     }
-    // }
+    void printMat() {
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++){
+               cout << adjMatrix[i][j] << " ";
+            }
+            cout << "\n" << endl;
+        }
+    }
     void addEdge(int source, int dest, double cost) {
         node newNode;
         newNode.dest = dest;
@@ -313,7 +313,7 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = g.getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
-    // g.printMat();
+    g.printMat();
     return 0;
 }
 
