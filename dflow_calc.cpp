@@ -255,7 +255,7 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     int n = b.n;
     Graph g(n);
     int dist[g.n], prev[g.n];
-    int start = 0;
+    int start = 11;
     g.addEdge(0, 10, 1);
     g.addEdge(1, 10, 1);
     g.addEdge(2, 0, 1);
@@ -289,7 +289,6 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     if (theInst < 0 ){
         return -1;
     }
-    g.displayEdges();
     pair<int, int> deps = g.getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
