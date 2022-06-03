@@ -113,9 +113,9 @@ static int miniDist(int distance[], bool Tset[], int n) // finding minimum dista
     int minimum=INT_MAX;
     int ind;
               
-    for(int k=0; k<n; k++) 
+    for(int k=0; k < n; k++) 
     {
-        if(Tset[k]==false && distance[k]<=minimum)      
+        if(Tset[k]==false && distance[k] <= minimum)      
         {
             minimum=distance[k];
             ind=k;
@@ -222,8 +222,9 @@ class Graph {
                 }
             }
         }
+        printMat();
         cout<<"Vertex\t\tDistance from source vertex"<<endl;
-        for(int k = 0; k<6; k++)                      
+        for(int k = 0; k < n; k++)                      
         { 
             cout<<k<<"\t\t\t"<<distance[k]<<endl;
         }
