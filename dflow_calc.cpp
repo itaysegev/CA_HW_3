@@ -17,11 +17,13 @@ using namespace std;
 
 class Graph {
     map<int, list <pair <int, double>>> l; // adjacency list
+    map<int, list <pair <int, int>>> adj;
 public:
     int size;
     int entry_index;
     int exit_index;
     void add_edge(int node, int neighbour, double distance) {
+        adj[node].push_back(make_pair(neighbour, distance));
         l[node].push_back(make_pair(neighbour, distance));
     }
  
@@ -30,7 +32,7 @@ public:
         // now we will iterate over all the keys in the map
         // then we will print the linked list of neighbors
         // associated with these nodes
-        for(auto p : l)
+        for(auto p : adj)
         {
             // iterate over all the neighbors of this particular node
             int node = p.first;
@@ -92,8 +94,8 @@ public:
             int u = *i; //the minimum element from queue
             Q.remove(u); 
             S.insert(u); //add u in the set
-            list<pair<int, double>> :: iterator it;
-            for(it = g.l[u].begin(); it != g.l[u].end();it++) {
+            list<pair<int, int>> :: iterator it;
+            for(it = g.adj[u].begin(); it != g.adj[u].end();it++) {
                 if((dist[u]+(it->second)) < dist[it->first]) { //relax (u,v)
                     dist[it->first] = (dist[u]+(it->second));
                     prev[it->first] = u;
@@ -151,7 +153,7 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.size], prev[g.size];
-    int start = 0;
+    int start = g.exit_index;
     g.print_graph();
     g.dijkstra(g, dist, prev, start);
     for(int i = 0; i<g.size; i++) {
