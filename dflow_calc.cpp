@@ -253,9 +253,9 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     // Graph g = *(Graph*)ctx;
     int n = 11;
-    Graph g(n);
-    int dist[g.n], prev[g.n];
-    int start = 0;
+    // Graph g(n);
+    // int dist[g.n], prev[g.n];
+    // int start = 0;
      // g.print_graph();
     // g.addEdge(0, 10, 1);
     // g.addEdge(1, 10, 1);
@@ -277,11 +277,11 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     // g.addEdge(11, 4, 0);
     // dijkstra(g, dist, prev, start);
     // g.displayEdges();
-    for(int i = 0; i<g.n; i++) {
-        if(i != start) {
-            cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
-        }
-    }
+    // for(int i = 0; i<g.n; i++) {
+    //     if(i != start) {
+    //         cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
+    //     }
+    // }
     return -1;
 }
 
