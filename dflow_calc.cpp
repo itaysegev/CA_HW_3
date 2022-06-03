@@ -143,7 +143,7 @@ class Graph {
         for (int i = 0; i < n; i++) {
             vector<int> v;
             for(int j = 0; j < n; j++){
-                v.push_back(0);
+                v.push_back(-1);
             }
             adjMatrix.push_back(v);
         }
