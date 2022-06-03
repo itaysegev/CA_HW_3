@@ -108,7 +108,7 @@ class Graph {
         for(i = lt.begin(); i != lt.end(); i++) {
             cout << (*i).cost << endl;
             cout <<  (*i).cost_by_src << endl;
-            cout << (*i).dest << endl;
+            cout << ((*i).cost_by_src - (*i).cost) << endl;
             if(((*i).cost_by_src - (*i).cost) == 0.2) {
                 deps.second = (*i).dest;
             }
