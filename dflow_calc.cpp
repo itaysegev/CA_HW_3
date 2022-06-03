@@ -217,7 +217,7 @@ class Graph {
             Tset[m]=true;
             for(int k = 0; k < n; k++) {
                 // updating the distance of neighbouring vertex
-                if(!Tset[k] && adjMatrix[m][k] && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
+                if(!Tset[k] && adjMatrix[m][k] != 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
                     distance[k] = distance[m] + adjMatrix[m][k];
                 }
             }
