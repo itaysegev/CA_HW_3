@@ -89,6 +89,7 @@ public:
             Q.push_back(u);    //add each node into queue
         }
         while(!Q.empty()) {
+            cout << "1" << endl;
             list<int> :: iterator i;
             i = min_element(Q.begin(), Q.end());
             int u = *i; //the minimum element from queue
