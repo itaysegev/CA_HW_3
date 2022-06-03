@@ -150,6 +150,7 @@ class Graph {
     }
     void printMat() {
         for (int i = 0; i < n; i++) {
+            cout << i << " ";
             for(int j = 0; j < n; j++){
                cout << adjMatrix[i][j] << " ";
             }
@@ -162,7 +163,7 @@ class Graph {
         newNode.cost = (int)cost; //convert to int
         newNode.cost_by_src = cost;
         adjList[source].push_back(newNode);
-        // adjMatrix[source][dest] = (int)cost;
+        adjMatrix[source][dest] = (int)cost;
     }
 
     void displayEdges() {
