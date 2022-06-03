@@ -253,7 +253,7 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph b = *(Graph*)ctx;
     int n = b.n;
-    cout << b << endl;
+    cout << n << endl;
     Graph g(n);
     int dist[g.n], prev[g.n];
     int start = 2;
