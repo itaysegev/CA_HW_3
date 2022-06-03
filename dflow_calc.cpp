@@ -151,9 +151,9 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.size], prev[g.size];
-    int start = g.exit_index;
+    int start = 0;
     g.print_graph();
-    g.dijkstra(g, dist, prev, 0);
+    g.dijkstra(g, dist, prev, start);
     for(int i = 0; i<g.size; i++) {
         if(i != start) {
             cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
