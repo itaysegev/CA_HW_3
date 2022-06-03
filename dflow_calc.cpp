@@ -275,8 +275,8 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     g.addEdge(9, 7, 0);
     g.addEdge(11, 9, 0);
     g.addEdge(11, 4, 0);
-    dijkstra(g, dist, prev, start);
-    g.displayEdges();
+    // dijkstra(g, dist, prev, start);
+    // g.displayEdges();
     for(int i = 0; i<g.n; i++) {
         if(i != start) {
             cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
