@@ -106,10 +106,8 @@ class Graph {
         list<node> lt = adjList[theInst];
         list<node> :: iterator i;
         for(i = lt.begin(); i != lt.end(); i++) {
-            cout << (*i).cost << endl;
-            cout <<  (*i).cost_by_src << endl;
-            cout << ((*i).cost_by_src - (*i).cost) << endl;
-            if(((*i).cost_by_src - (*i).cost) == 0.2) {
+            double dist = (*i).cost_by_src - (*i).cost; 
+            if(dist == 0.2) {
                 cout << (*i).dest << endl;
                 deps.second = (*i).dest;
             }
