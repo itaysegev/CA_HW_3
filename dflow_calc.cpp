@@ -36,15 +36,15 @@ public:
         {
             // iterate over all the neighbors of this particular node
             int node = p.first;
-            list <pair <int, double>> neighbour = p.second;
+            list <pair <int, int>> neighbour = p.second;
  
             cout << "Neighbors of: " << node << " are:\n";
-            pair<int, double> deps;
+            pair<int, int> deps;
             
             for(auto nbr : neighbour)
             {
                 int dest = nbr.first;
-                double distance = nbr.second;
+                int distance = nbr.second;
  
                 cout << "Neighbour: " << dest << " " << " Distance: "<< distance << endl;
             }
