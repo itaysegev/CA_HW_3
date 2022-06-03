@@ -75,7 +75,6 @@ public:
     }
 
     void dijkstra(Graph g, int *dist, int *prev, int start){
-
         for(int u = 0; u < g.size; u++) {
             dist[u] = 9999;   //set as infinity
             prev[u] = -1;    //undefined previous
@@ -101,6 +100,7 @@ public:
                 }
             }
         }
+    }
 };
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
