@@ -12,6 +12,7 @@
 #include<set>
 #include<algorithm>
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -114,6 +115,7 @@ typedef struct nodes {
 
 class Graph {
    list<node> *adjList;
+   vector<vector<int>> adjMatrix;
    private:
       void showList(int src, list<node> lt) {
         list<node> :: iterator i;
@@ -138,14 +140,27 @@ class Graph {
         entry_index = n - 2;
         exit_index = n - 1;
         adjList = new list<node>[n];
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++){
+                adjMatrix[i][j] = 0;
+            }
+        }
     }
-
+    void printMat() {
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++){
+               cout << adjMatrix[i][j] << " ";
+            }
+            cout << "\n" << endl;
+        }
+    }
     void addEdge(int source, int dest, double cost) {
         node newNode;
         newNode.dest = dest;
         newNode.cost = (int)cost; //convert to int
         newNode.cost_by_src = cost;
         adjList[source].push_back(newNode);
+        adjMatrix[source][dest] = (int)cost;
     }
 
     void displayEdges() {
@@ -170,12 +185,14 @@ class Graph {
         }
         return deps; 
     }
+
     friend void dijkstra(Graph g, int *dist, int *prev, int start);
 };
 
 void dijkstra(Graph g, int *dist, int *prev, int start) {
 
     int n = g.n;
+
     for(int u = 0; u<n; u++) {
        dist[u] = 9999;   //set as infinity
        prev[u] = -1;    //undefined previous
@@ -202,6 +219,7 @@ void dijkstra(Graph g, int *dist, int *prev, int start) {
              }
          }
     }
+
 }
 
 
@@ -257,8 +275,8 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g(n);
     int dist[g.n], prev[g.n];
     int start = 0;
-    g.addEdge(1, 2, 1);
-    g.addEdge(0, 1, 1);
+    // g.addEdge(1, 2, 1);
+    // g.addEdge(0, 1, 1);
     // g.addEdge(3, 2, 1);
     // g.addEdge(3, 0, 4);
     // g.addEdge(4, 0, 2);
@@ -293,6 +311,7 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = g.getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
+    g.printMat();
     return 0;
 }
 
