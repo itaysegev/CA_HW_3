@@ -153,7 +153,7 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     int dist[g.size], prev[g.size];
     int start = g.exit_index;
     g.print_graph();
-    g.dijkstra(g, dist, prev, start);
+    g.dijkstra(g, dist, prev, 0);
     for(int i = 0; i<g.size; i++) {
         if(i != start) {
             cout<<start<<" to "<<i<<", Cost: "<<dist[i]<<" Previous: "<<prev[i]<<endl;
