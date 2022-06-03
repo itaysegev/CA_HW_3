@@ -160,7 +160,7 @@ class Graph {
         newNode.cost = (int)cost; //convert to int
         newNode.cost_by_src = cost;
         adjList[source].push_back(newNode);
-        adjMatrix[source][dest] = (int)cost;
+        // adjMatrix[source][dest] = (int)cost;
     }
 
     void displayEdges() {
