@@ -159,9 +159,9 @@ int main(int argc, const char *argv[]) {
     printf("getProgDepth()==%d\n", getProgDepth(ctx));
     // Read instruction specific queries (if any)
     for (i = 3; i < argc; ++i) {
+        printf("1\n");
         const char qType = argv[i][0];
         const unsigned int instNum = strtol(argv[i]+1, &endPtr, 10);
-        printf("AAA");
         if (*endPtr != 0) {
             printf("Error: Invalid instruction number in the query: %s\n", argv[i]);
             exit(3);
