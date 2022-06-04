@@ -18,7 +18,7 @@
 using namespace std;
 
 
-static int miniDist(int distance[], bool Tset[], int n) // finding minimum distance
+int miniDist(int distance[], bool Tset[], int n) // finding minimum distance
 {
     int minimum=INT_MAX;
     int ind;
@@ -127,22 +127,10 @@ class Graph {
         for(int count = 0; count < n; count++) {
             int m=miniDist(distance, Tset, n); 
             Tset[m]=true;
-            if (m == 3){
-                cout << "m==3" << endl;
-                cout << distance[m] << endl;
-                cout << Tset[0] << endl;
-                cout << adjMatrix[m][0] << endl;
-                cout << distance[0] << endl;
-                cout << "m=3" << endl;
-            }
             for(k = 0; k < n; k++) {
                 // updating the distance of neighbouring vertex
                 if(!Tset[k] && adjMatrix[m][k] < 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
                     distance[k] = distance[m] + adjMatrix[m][k];
-                    if (k==0) {
-                        cout << "A" << m << endl;
-                        cout << "AAAA" << distance[k] << endl;
-                    }
                 }
             }
         }
@@ -197,11 +185,7 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.n];
-    cout << theInst << endl;
     g.DijkstraAlgo(dist, theInst);
-    cout << dist[3] << endl;
-    cout << dist[0] << endl;
-    cout << dist[g.entry_index] << endl;
     return  (-1 * dist[g.entry_index]);
 }
 
@@ -218,8 +202,6 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 
 int getProgDepth(ProgCtx ctx) {
     Graph g = *(Graph*)ctx;
-    g.displayEdges();
-    g.printMat();
     int exit = g.exit_index;
     return getInstDepth(ctx, exit);
 }
