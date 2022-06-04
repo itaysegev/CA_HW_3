@@ -123,15 +123,16 @@ class Graph {
             Tset[k] = false;    
         }
         distance[src] = 0;   // Source vertex distance is set 0               
+        int k;
         for(int count = 0; count < n; count++) {
             int m=miniDist(distance, Tset, n); 
             Tset[m]=true;
-            for(int k = 0; k < n; k++) {
+            for(k = 0; k < n; k++) {
                 // updating the distance of neighbouring vertex
                 if(!Tset[k] && adjMatrix[m][k] < 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
                     distance[k] = distance[m] + adjMatrix[m][k];
                     if (k==0) {
-                        cout << distance[k] << endl;
+                        cout << "AAAA" << distance[k] << endl;
                     }
                 }
             }
