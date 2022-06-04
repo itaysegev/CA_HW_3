@@ -202,8 +202,8 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 int getProgDepth(ProgCtx ctx) {
     Graph g = *(Graph*)ctx;
     g.displayEdges();
-    int exit = (*(Graph*)ctx).exit_index;
-    return getInstDepth(ctx, exit);
+    int exit = g.exit_index;
+    return getInstDepth(ctx, 11);
 }
 
 
