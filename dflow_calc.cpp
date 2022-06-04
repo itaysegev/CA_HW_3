@@ -189,6 +189,10 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     cout << dist[9] << endl;
     cout<< dist[8] << endl;
     cout << dist[6] << endl;
+    cout << dist[3] << endl;
+    cout << dist[0] << endl;
+    cout << dist[10] << endl;
+    cout << dist[g.entry_index] << endl;
     return  (-1 * dist[g.entry_index]);
 }
 
