@@ -237,7 +237,7 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = g.getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
-    g.displayEdges();
+    // g.displayEdges();
     return 0;
 }
 
