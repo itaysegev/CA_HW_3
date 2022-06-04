@@ -1,141 +1,180 @@
-/* 046267 Computer Architecture - Winter 20/21 - HW #3               */
-/* Implementation (skeleton)  for the dataflow statistics calculator */
 #define MAX_REG 32
 #define NO_WRITE_OP -1
 #define INT_MAX 99999
 #include "dflow_calc.h"
-#include <cstdlib>
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <map>
-#include<set>
-#include<algorithm>
+#include <limits.h>
 #include <list>
-#include <vector>
-
+#include <stack>
+#include <map>
+#define NINF INT_MIN
 using namespace std;
-
-
-int miniDist(int distance[], bool Tset[], int n) // finding minimum distance
-{
-    int minimum=INT_MAX;
-    int ind;
-              
-    for(int k=0; k < n; k++) 
+ 
+// Graph is represented using adjacency list. Every
+// node of adjacency list contains vertex number of
+// the vertex to which edge connects. It also
+// contains weight of the edge
+class AdjListNode {
+    int v;
+    int weight;
+    double dist;
+   
+public:
+    AdjListNode(int _v, double _w)
     {
-        if(Tset[k]==false && distance[k] <= minimum)      
-        {
-            minimum=distance[k];
-            ind=k;
-        }
+        v = _v;
+        weight =(int) _w;
+        dist =  _w;
+
     }
-    return ind;
-}
-
-typedef struct nodes {
-   int dest;
-   int cost;
-   double cost_by_src;
-}node;
-
+    int getV() { return v; }
+    int getWeight() { return weight; }
+    double getDist() { return dist; }
+};
+   
+// Class to represent a graph using adjacency list
+// representation
 class Graph {
-   list<node> *adjList;
-   vector<vector<int>> adjMatrix;
-   private:
-      void showList(int src, list<node> lt) {
-        list<node> :: iterator i;
-        node tempNode;
-
+    int V; // No. of vertices'
+    
+    // Pointer to an array containing adjacency lists
+    list<AdjListNode>* adj;
+   
+    // A function used by longestPath
+    void topologicalSortUtil(int v, bool visited[],
+                             stack<int>& Stack);
+    void showList(int src, list<AdjListNode> lt) {
+        list<AdjListNode> :: iterator i;
+        AdjListNode tempNode(0,0);
         for(i = lt.begin(); i != lt.end(); i++) {
             tempNode = *i;
-            cout << "(" << src << ")---("<<tempNode.dest << "|"<<tempNode.cost<<") ";
+            cout << "(" << src << ")---("<<tempNode.getV() << "|"<<tempNode.getWeight()<<") ";
         }
         cout << endl;
-      }
-   public:
-    int n;
-    int entry_index;
-    int exit_index;
-    Graph() {
-        n = 0;
     }
-
-    Graph(int nodeCount) {
-        n = nodeCount;
-        entry_index = n - 2;
-        exit_index = n - 1;
-        adjList = new list<node>[n];
-        for (int i = 0; i < n; i++) {
-            vector<int> v;
-            for(int j = 0; j < n; j++){
-                v.push_back(1);
-            }
-            adjMatrix.push_back(v);
-        }
-    }
-    void printMat() {
-        for (int i = 0; i < n; i++) {
-            cout << i << " ";
-            for(int j = 0; j < n; j++){
-               cout << adjMatrix[i][j] << " ";
-            }
-            cout << "\n" << endl;
-        }
-    }
-    void addEdge(int source, int dest, double cost) {
-        node newNode;
-        newNode.dest = dest;
-        newNode.cost = (int)cost; //convert to int
-        newNode.cost_by_src = cost;
-        adjList[source].push_back(newNode);
-        adjMatrix[source][dest] = -1 * (int)cost;
-    }
-
+   
+public:
+    int entry_index, exit_index;
+    Graph(int V); // Constructor
+    ~Graph(); // Destructor
+    
+    // function to add an edge to graph
+    void addEdge(int u, int v, double weight);
     void displayEdges() {
-        for(int i = 0; i<n; i++) {
-            list<node> tempList = adjList[i];
+        for(int i = 0; i < V; i++) {
+            list<AdjListNode> tempList = adj[i];
             showList(i, tempList);
         }
     }
-    pair<int, int> getDeps(unsigned int theInst) {
+   
+    // Finds longest distances from given source vertex
+    void longestPath(int s);
+    pair<int, int> getDeps(unsigned int theInst);
+};
+   
+Graph::Graph(int V) // Constructor
+{
+    this->V = V;
+    this->entry_index = V - 2;
+    this->exit_index = V - 1;
+    adj = new list<AdjListNode>[V];
+}
+ 
+Graph::~Graph() // Destructor
+{
+    delete [] adj;
+}
+pair<int, int> Graph::getDeps(unsigned int theInst) {
         pair<int, int> deps;
         deps.first = -1;
         deps.second = -1;
-        list<node> lt = adjList[theInst];
-        list<node> :: iterator i;
+        list<AdjListNode> lt = adj[theInst];
+        list<AdjListNode> :: iterator i;
         for(i = lt.begin(); i != lt.end(); i++) {
-            double dist = (*i).cost_by_src - (*i).cost; 
+            double dist = (*i).getDist() - (*i).getWeight(); 
             if(dist > 0.2) {
-                deps.second = (*i).dest;
+                deps.second = (*i).getV();
             }
             else {
-                deps.first = (*i).dest;
+                deps.first = (*i).getV();
             } 
         }
         return deps; 
     }
-    void DijkstraAlgo(int* distance, int src) {                             
-        bool Tset[n];// boolean array to mark visited and unvisited for each node
-        for(int k = 0; k < n; k++) {
-            distance[k] = INT_MAX;
-            Tset[k] = false;    
-        }
-        distance[src] = 0;   // Source vertex distance is set 0               
-        int k;
-        for(int count = 0; count < n; count++) {
-            int m=miniDist(distance, Tset, n); 
-            Tset[m]=true;
-            for(k = 0; k < n; k++) {
-                // updating the distance of neighbouring vertex
-                if(!Tset[k] && adjMatrix[m][k] < 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
-                    distance[k] = distance[m] + adjMatrix[m][k];
-                }
+ 
+ 
+void Graph::addEdge(int u, int v, double weight)
+{
+    AdjListNode node(v, weight);
+    adj[u].push_back(node); // Add v to u's list
+}
+   
+void Graph::topologicalSortUtil(int v, bool visited[],
+                                stack<int>& Stack)
+{
+    // Mark the current node as visited
+    visited[v] = true;
+   
+    // Recur for all the vertices adjacent to this vertex
+    list<AdjListNode>::iterator i;
+    for (i = adj[v].begin(); i != adj[v].end(); ++i) {
+        AdjListNode node = *i;
+        if (!visited[node.getV()])
+            topologicalSortUtil(node.getV(), visited, Stack);
+    }
+   
+    // Push current vertex to stack which stores topological
+    // sort
+    Stack.push(v);
+}
+   
+// The function to find longest distances from a given vertex.
+// It uses recursive topologicalSortUtil() to get topological
+// sorting.
+void Graph::longestPath(int s)
+{
+    stack<int> Stack;
+    int dist[V];
+   
+    // Mark all the vertices as not visited
+    bool* visited = new bool[V];
+    for (int i = 0; i < V; i++)
+        visited[i] = false;
+   
+    // Call the recursive helper function to store Topological
+    // Sort starting from all vertices one by one
+    for (int i = 0; i < V; i++)
+        if (visited[i] == false)
+            topologicalSortUtil(i, visited, Stack);
+   
+    // Initialize distances to all vertices as infinite and
+    // distance to source as 0
+    for (int i = 0; i < V; i++)
+        dist[i] = NINF;
+    dist[s] = 0;
+    // Process vertices in topological order
+    while (Stack.empty() == false) {
+        // Get the next vertex from topological order
+        int u = Stack.top();
+        Stack.pop();
+   
+        // Update distances of all adjacent vertices
+        list<AdjListNode>::iterator i;
+        if (dist[u] != NINF) {
+            for (i = adj[u].begin(); i != adj[u].end(); ++i){
+             
+                if (dist[i->getV()] < dist[u] + i->getWeight())
+                    dist[i->getV()] = dist[u] + i->getWeight();
             }
         }
     }
-};  
+   
+    // Print the calculated longest distances
+    for (int i = 0; i < V; i++)
+        (dist[i] == NINF) ? cout << "INF " : cout << dist[i] << " ";
+     
+    delete [] visited;
+}
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
     Graph* g = new Graph(numOfInsts + 2);
@@ -183,10 +222,11 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
-    Graph g = *(Graph*)ctx;
-    int dist[g.n];
-    g.DijkstraAlgo(dist, theInst);
-    return  (-1 * dist[g.entry_index]);
+    // Graph g = *(Graph*)ctx;
+    // int dist[g.n];
+    // g.DijkstraAlgo(dist, theInst);
+    // return  (-1 * dist[g.entry_index]);
+    return -1;
 }
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
@@ -197,6 +237,7 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = g.getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
+    g.displayEdges();
     return 0;
 }
 
@@ -205,5 +246,3 @@ int getProgDepth(ProgCtx ctx) {
     int exit = g.exit_index;
     return getInstDepth(ctx, exit);
 }
-
-
