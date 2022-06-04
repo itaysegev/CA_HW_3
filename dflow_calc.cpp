@@ -250,4 +250,5 @@ int getProgDepth(ProgCtx ctx) {
     // Graph g = *(Graph*)ctx;
     // int exit = g.exit_index;
     // return getInstDepth(ctx, exit);
+    return -1;
 }
