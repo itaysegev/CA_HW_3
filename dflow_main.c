@@ -161,7 +161,6 @@ int main(int argc, const char *argv[]) {
     for (i = 3; i < argc; ++i) {
         const char qType = argv[i][0];
         const unsigned int instNum = strtol(argv[i]+1, &endPtr, 10);
-        printf("1\n");
         if (*endPtr != 0) {
             printf("Error: Invalid instruction number in the query: %s\n", argv[i]);
             exit(3);
