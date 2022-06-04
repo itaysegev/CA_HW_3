@@ -126,11 +126,13 @@ class Graph {
         for(int count = 0; count < n; count++) {
             int m=miniDist(distance, Tset, n); 
             Tset[m]=true;
-            for(int k = 0; k < n-1; k++) {
+            for(int k = 0; k < n; k++) {
                 // updating the distance of neighbouring vertex
-                if(!Tset[k] && adjMatrix[m][k] != 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
+                if(!Tset[k] && adjMatrix[m][k] < 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
                     distance[k] = distance[m] + adjMatrix[m][k];
-                    
+                    if (k==0) {
+                        cout << distance[k] << endl;
+                    }
                 }
             }
         }
@@ -187,12 +189,8 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     int dist[g.n];
     cout << theInst << endl;
     g.DijkstraAlgo(dist, theInst);
-    cout << dist[9] << endl;
-    cout<< dist[8] << endl;
-    cout << dist[6] << endl;
     cout << dist[3] << endl;
     cout << dist[0] << endl;
-    cout << dist[10] << endl;
     cout << dist[g.entry_index] << endl;
     return  (-1 * dist[g.entry_index]);
 }
