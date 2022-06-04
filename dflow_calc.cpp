@@ -122,7 +122,7 @@ class Graph {
             distance[k] = INT_MAX;
             Tset[k] = false;    
         }
-        distance[src] = 0;   // Source vertex distance is set 0               
+        distance[src] = 1;   // Source vertex distance is set 0               
         for(int k = 0; k < n; k++) {
             int m=miniDist(distance, Tset, n); 
             Tset[m]=true;
