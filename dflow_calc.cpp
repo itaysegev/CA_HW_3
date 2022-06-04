@@ -228,7 +228,7 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.V];
-    g.longestPath(theInst);
+    // g.longestPath(theInst);
     // g.DijkstraAlgo(dist, theInst);
     // return  (-1 * dist[g.entry_index]);
     return -1;
@@ -239,10 +239,10 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     if (theInst < 0 ){
         return -1;
     }
-    pair<int, int> deps = g.getDeps(theInst);
-    *src1DepInst = deps.first;
-    *src2DepInst = deps.second;
-    g.displayEdges();
+    // pair<int, int> deps = g.getDeps(theInst);
+    // *src1DepInst = deps.first;
+    // *src2DepInst = deps.second;
+    // g.displayEdges();
     return 0;
 }
 
