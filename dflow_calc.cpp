@@ -89,6 +89,7 @@ pair<int, int> Graph::getDeps(unsigned int theInst) {
         deps.first = -1;
         deps.second = -1;
         list<AdjListNode> lt = adj[theInst];
+        cout << "AAA" << endl;
         list<AdjListNode> :: iterator i;
         for(i = lt.begin(); i != lt.end(); i++) {
             double dist = (*i).getDist() - (*i).getWeight(); 
@@ -215,7 +216,6 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             (*g).addEdge(exit, i, opsLatency[opcode]);
         }
     }
-    (*g).displayEdges();
     return g;
 }
 
@@ -243,7 +243,7 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 }
 
 int getProgDepth(ProgCtx ctx) {
-    Graph g = *(Graph*)ctx;
-    int exit = g.exit_index;
-    return getInstDepth(ctx, exit);
+    // Graph g = *(Graph*)ctx;
+    // int exit = g.exit_index;
+    // return getInstDepth(ctx, exit);
 }
