@@ -226,8 +226,8 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
-    Graph g = *(Graph*)ctx;
-    int dist[g.V];
+    // Graph g = *(Graph*)ctx;
+    // int dist[g.V];
     // g.longestPath(theInst);
     // g.DijkstraAlgo(dist, theInst);
     // return  (-1 * dist[g.entry_index]);
@@ -235,7 +235,7 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
 }
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
-    Graph g = *(Graph*)ctx;
+    // Graph g = *(Graph*)ctx;
     if (theInst < 0 ){
         return -1;
     }
