@@ -127,7 +127,11 @@ class Graph {
         for(int count = 0; count < n; count++) {
             int m=miniDist(distance, Tset, n); 
             Tset[m]=true;
-            cout << "B" << m << endl;
+            if (m == 3){
+                cout << "m==3" << endl;
+                cout << distance[m] << endl;
+                
+            }
             for(k = 0; k < n; k++) {
                 // updating the distance of neighbouring vertex
                 if(!Tset[k] && adjMatrix[m][k] < 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
