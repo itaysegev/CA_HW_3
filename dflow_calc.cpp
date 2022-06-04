@@ -126,7 +126,7 @@ class Graph {
         for(int count = 0; count < n; count++) {
             int m=miniDist(distance, Tset, n); 
             Tset[m]=true;
-            for(int k = 0; k < n; k++) {
+            for(int k = 0; k < n-1; k++) {
                 // updating the distance of neighbouring vertex
                 if(!Tset[k] && adjMatrix[m][k] != 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
                     distance[k] = distance[m] + adjMatrix[m][k];
