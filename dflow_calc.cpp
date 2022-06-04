@@ -215,7 +215,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             (*g).addEdge(exit, i, opsLatency[opcode]);
         }
     }
-    g.displayEdges();
+    (*g).displayEdges();
     return g;
 }
 
