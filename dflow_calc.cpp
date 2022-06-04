@@ -167,7 +167,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
         }
         reg_dict[progTrace[i].dstIdx] = i; //update dict[dst_reg] last write op 
     }
-    for(i = 0; i < numOfInsts ; i++){ 
+    for(i = 0; i < numOfInsts ; i++){
         int opcode = progTrace[i].opcode;
         if(no_other_dep[i]) {
             (*g).addEdge(exit, i, opsLatency[opcode]);
@@ -182,8 +182,8 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.n];
-    g.DijkstraAlgo(dist, g.exit_index);
-    return  (-1 * dist[theInst]);
+    g.DijkstraAlgo(dist, theInst);
+    return  (-1 * dist[g.entry_index]);
 }
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
@@ -200,8 +200,8 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 int getProgDepth(ProgCtx ctx) {
     Graph g = *(Graph*)ctx;
     g.displayEdges();
-    int entry = (*(Graph*)ctx).entry_index;
-    return getInstDepth(ctx, entry);
+    int exit = (*(Graph*)ctx).exit_index;
+    return getInstDepth(ctx, exit);
 }
 
 
