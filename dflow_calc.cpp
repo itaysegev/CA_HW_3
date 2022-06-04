@@ -107,7 +107,7 @@ class Graph {
         list<node> :: iterator i;
         for(i = lt.begin(); i != lt.end(); i++) {
             double dist = (*i).cost_by_src - (*i).cost; 
-            if(dist == 0.2) {
+            if(dist > 0.2) {
                 cout << (*i).dest << endl;
                 deps.second = (*i).dest;
             }
@@ -159,7 +159,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
         }
         if(reg_dict[progTrace[i].src2Idx] != NO_WRITE_OP){
             int last_write_op = reg_dict[progTrace[i].src2Idx];
-            (*g).addEdge(i, last_write_op, opsLatency[opcode] + 0.2);
+            (*g).addEdge(i, last_write_op, opsLatency[opcode] + 0.3);
             no_other_dep[last_write_op] = false;
             no_dep = false;    
         }
