@@ -133,6 +133,7 @@ class Graph {
                 cout << Tset[0] << endl;
                 cout << adjMatrix[m][0] << endl;
                 cout << distance[0] << endl;
+                cout << "m=3" << endl;
             }
             for(k = 0; k < n; k++) {
                 // updating the distance of neighbouring vertex
