@@ -82,6 +82,7 @@ Graph::Graph(int V) // Constructor
  
 Graph::~Graph() // Destructor
 {
+    cout << "now" << endl;
     delete [] adj;
 }
 pair<int, int> Graph::getDeps(unsigned int theInst) {
