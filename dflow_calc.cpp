@@ -184,6 +184,7 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph g = *(Graph*)ctx;
     int dist[g.n];
+    cout << theInst << endl;
     g.DijkstraAlgo(dist, theInst);
     return  (-1 * dist[g.entry_index]);
 }
