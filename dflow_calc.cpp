@@ -70,7 +70,7 @@ class Graph {
         for (int i = 0; i < n; i++) {
             vector<int> v;
             for(int j = 0; j < n; j++){
-                v.push_back(1);
+                v.push_back(2);
             }
             adjMatrix.push_back(v);
         }
@@ -122,7 +122,7 @@ class Graph {
             distance[k] = INT_MAX;
             Tset[k] = false;    
         }
-        distance[src] = 1;   // Source vertex distance is set 0               
+        distance[src] = 0;   // Source vertex distance is set 0               
         for(int k = 0; k < n; k++) {
             int m=miniDist(distance, Tset, n); 
             Tset[m]=true;
