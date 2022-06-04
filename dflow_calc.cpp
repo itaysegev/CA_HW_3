@@ -215,6 +215,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             (*g).addEdge(exit, i, opsLatency[opcode]);
         }
     }
+    g.displayEdges();
     return g;
 }
 
@@ -234,9 +235,9 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     if (theInst < 0 ){
         return -1;
     }
-    pair<int, int> deps = g.getDeps(theInst);
-    *src1DepInst = deps.first;
-    *src2DepInst = deps.second;
+    // pair<int, int> deps = g.getDeps(theInst);
+    // *src1DepInst = deps.first;
+    // *src2DepInst = deps.second;
     // g.displayEdges();
     return 0;
 }
