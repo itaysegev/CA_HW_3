@@ -220,6 +220,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
 }
 
 void freeProgCtx(ProgCtx ctx) {
+    delete (Graph*)ctx;
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
