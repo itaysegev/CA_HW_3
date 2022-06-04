@@ -132,6 +132,7 @@ class Graph {
                 if(!Tset[k] && adjMatrix[m][k] < 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
                     distance[k] = distance[m] + adjMatrix[m][k];
                     if (k==0) {
+                        cout << "A" << m << endl;
                         cout << "AAAA" << distance[k] << endl;
                     }
                 }
