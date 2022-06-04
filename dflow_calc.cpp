@@ -43,15 +43,7 @@ class Graph {
     // A function used by longestPath
     void topologicalSortUtil(int v, bool visited[],
                              stack<int>& Stack);
-    void showList(int src, list<AdjListNode> lt) {
-        list<AdjListNode> :: iterator i;
-        AdjListNode tempNode(0,0);
-        for(i = lt.begin(); i != lt.end(); i++) {
-            tempNode = *i;
-            cout << "(" << src << ")---("<<tempNode.getV() << "|"<<tempNode.getWeight()<<") ";
-        }
-        cout << endl;
-    }
+    void showList(int src, list<AdjListNode> lt);
    
 public:
     int V; // No. of vertices' 
@@ -60,12 +52,7 @@ public:
     ~Graph(); // Destructor
     // function to add an edge to graph
     void addEdge(int u, int v, double weight);
-    void displayEdges() {
-        for(int i = 0; i < V; i++) {
-            list<AdjListNode> tempList = adj[i];
-            showList(i, tempList);
-        }
-    }
+    void displayEdges();
    
     // Finds longest distances from given source vertex
     void longestPath(int s);
@@ -82,8 +69,23 @@ Graph::Graph(int V) // Constructor
  
 Graph::~Graph() // Destructor
 {
-    cout << "now" << endl;
     delete [] adj;
+}
+void Graph::displayEdges() {
+        for(int i = 0; i < V; i++) {
+            list<AdjListNode> tempList = adj[i];
+            showList(i, tempList);
+        }
+}
+
+void Graph::showList(int src, list<AdjListNode> lt) {
+     list<AdjListNode> :: iterator i;
+     AdjListNode tempNode(0,0);
+     for(i = lt.begin(); i != lt.end(); i++) {
+         tempNode = *i;
+         cout << "(" << src << ")---("<<tempNode.getV() << "|"<<tempNode.getWeight()<<") ";
+     }
+     cout << endl;
 }
 pair<int, int> Graph::getDeps(unsigned int theInst) {
         pair<int, int> deps;
