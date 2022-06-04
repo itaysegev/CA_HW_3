@@ -70,7 +70,7 @@ class Graph {
         for (int i = 0; i < n; i++) {
             vector<int> v;
             for(int j = 0; j < n; j++){
-                v.push_back(2);
+                v.push_back(1);
             }
             adjMatrix.push_back(v);
         }
@@ -123,13 +123,14 @@ class Graph {
             Tset[k] = false;    
         }
         distance[src] = 0;   // Source vertex distance is set 0               
-        for(int k = 0; k < n; k++) {
+        for(int count = 0; count < n; count++) {
             int m=miniDist(distance, Tset, n); 
             Tset[m]=true;
             for(int k = 0; k < n; k++) {
                 // updating the distance of neighbouring vertex
                 if(!Tset[k] && adjMatrix[m][k] != 1 && distance[m]!=INT_MAX && distance[m] + adjMatrix[m][k] < distance[k]) {
                     distance[k] = distance[m] + adjMatrix[m][k];
+                    
                 }
             }
         }
