@@ -35,7 +35,7 @@ public:
 // Class to represent a graph using adjacency list
 // representation
 class Graph {
-    int V; // No. of vertices'
+   
     
     // Pointer to an array containing adjacency lists
     list<AdjListNode>* adj;
@@ -54,10 +54,10 @@ class Graph {
     }
    
 public:
+    int V; // No. of vertices' 
     int entry_index, exit_index;
     Graph(int V); // Constructor
     ~Graph(); // Destructor
-    
     // function to add an edge to graph
     void addEdge(int u, int v, double weight);
     void displayEdges() {
@@ -89,7 +89,6 @@ pair<int, int> Graph::getDeps(unsigned int theInst) {
         deps.first = -1;
         deps.second = -1;
         list<AdjListNode> lt = adj[theInst];
-        cout << "AAA" << endl;
         list<AdjListNode> :: iterator i;
         for(i = lt.begin(); i != lt.end(); i++) {
             double dist = (*i).getDist() - (*i).getWeight(); 
@@ -101,7 +100,7 @@ pair<int, int> Graph::getDeps(unsigned int theInst) {
             } 
         }
         return deps; 
-    }
+}
  
  
 void Graph::addEdge(int u, int v, double weight)
@@ -224,8 +223,9 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
-    // Graph g = *(Graph*)ctx;
-    // int dist[g.n];
+    Graph g = *(Graph*)ctx;
+    int dist[g.V];
+    g.longestPath(theInst);
     // g.DijkstraAlgo(dist, theInst);
     // return  (-1 * dist[g.entry_index]);
     return -1;
