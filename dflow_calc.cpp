@@ -186,6 +186,9 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     int dist[g.n];
     cout << theInst << endl;
     g.DijkstraAlgo(dist, theInst);
+    cout << dist[9] << endl;
+    cout<< dist[8] << endl;
+    cout << dist[6] << endl;
     return  (-1 * dist[g.entry_index]);
 }
 
