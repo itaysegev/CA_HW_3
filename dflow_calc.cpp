@@ -219,6 +219,9 @@ void freeProgCtx(ProgCtx ctx) {
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph* g = (Graph*)ctx;
+    if ((theInst < 0) || (theInst >= (*g).V) ){
+        return -1;
+    }
     int dist[(*g).V];
     (*g).longestPath(theInst, dist);
     return dist[(*g).entry_index];
@@ -226,7 +229,7 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
     Graph* g = (Graph*)ctx;
-    if (theInst < 0 ){
+    if ((theInst < 0) || (theInst >= (*g).V) ){
         return -1;
     }
     pair<int, int> deps = (*g).getDeps(theInst);
@@ -237,7 +240,6 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 
 int getProgDepth(ProgCtx ctx) {
     Graph* g = (Graph*)ctx;
-    // Graph g = *(Graph*)ctx;
     int exit = (*g).exit_index;
     return getInstDepth(ctx, exit);
 }
