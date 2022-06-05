@@ -167,12 +167,7 @@ void Graph::longestPath(int s, int dist[])
                     dist[i->getV()] = dist[u] + i->getWeight();
             }
         }
-    }
-   
-    // Print the calculated longest distances
-    for (int i = 0; i < V; i++)
-        (dist[i] == NINF) ? cout << "INF " : cout << dist[i] << " ";
-     
+    }     
     delete [] visited;
 }
 
