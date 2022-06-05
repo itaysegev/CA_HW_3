@@ -196,7 +196,6 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
         no_other_dep[i] = true; // for exit edge
     }
     for(i = 0; i < numOfInsts; i++){
-        a[progTrace[i].dstIdx] = true;
         bool no_dep = true;
         int opcode;
         if(reg_dict[progTrace[i].src1Idx] != NO_WRITE_OP){
