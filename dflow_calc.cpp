@@ -174,18 +174,12 @@ void Graph::longestPath(int s, int dist[])
                     dist[i->getV()] = dist[u] + i->getWeight();
             }
         }
-        // if(dist[entry_index] != NINF) {
-        //     cout << dist[entry_index] << endl; 
-        // }
-        // cout <<"A" << endl;
     }     
     delete [] visited;
 }
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
     Graph* g = new Graph(numOfInsts + 2);
-    // map<int, int> reg_dict; // reg_dict[reg] = last_write_op by index 
-    // map<int, bool> no_other_dep;
     int reg_dict[MAX_REG];
     bool no_other_dep[numOfInsts + 2];
     int entry = (*g).entry_index;
@@ -193,7 +187,6 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
     int i;
     for(i = 0; i < MAX_REG; i++) {
         reg_dict[i] = NO_WRITE_OP;
-        // no_other_dep[i] = true; // for exit edge
     }
     for(i = 0; i < numOfInsts; i++){
         bool no_dep = true;
@@ -222,12 +215,8 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
     for(i = 0; i < numOfInsts; i++){
         int opcode = progTrace[i].opcode;
         if(no_other_dep[i]) {
-            // cout << i << endl;
             (*g).addEdge(exit, i, opsLatency[opcode]);
         }
-        // if(!a[i]){
-        //     cout << i << endl;
-        // }
     }
     return g;
 }
@@ -260,28 +249,5 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 int getProgDepth(ProgCtx ctx) {
     Graph* g = (Graph*)ctx;
     int exit = (*g).exit_index;
-    // int dist[(*g).V];
-    // (*g).longestPath(exit, dist);
     return getInstDepth(ctx, exit);
-    // cout << getInstDepth(ctx, 3071) << endl;
-    // cout << getInstDepth(ctx, 9) << endl;
-    // cout << getInstDepth(ctx, 11) << endl;
-    // cout << getInstDepth(ctx, 16) << endl;
-    // cout << getInstDepth(ctx, 17) << endl;
-    // cout << getInstDepth(ctx, 18) << endl;
-    // cout << getInstDepth(ctx, 19) << endl;
-    // cout << getInstDepth(ctx, 20) << endl;
-    // cout << getInstDepth(ctx, 22) << endl;
-    // cout << getInstDepth(ctx, 23) << endl;
-    // cout << getInstDepth(ctx, 28) << endl;
-    
-
-    // (*g).displayEdges();
-    // int max_idx = exit;
-    // for (int i = 0; i < (*g).V; i++){
-    //     if (dist[i] > dist[max_idx]) {
-    //         max_idx = i;
-    //     }
-    // }
-    // return 0;
 }
