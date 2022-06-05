@@ -187,7 +187,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
     // map<int, int> reg_dict; // reg_dict[reg] = last_write_op by index 
     // map<int, bool> no_other_dep;
     int reg_dict[MAX_REG];
-    bool no_other_dep[MAX_REG];
+    bool no_other_dep[numOfInsts + 2];
     int entry = (*g).entry_index;
     int exit = (*g).exit_index;
     int i;
