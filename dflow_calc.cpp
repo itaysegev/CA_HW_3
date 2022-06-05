@@ -184,11 +184,12 @@ void Graph::longestPath(int s, int dist[])
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
     Graph* g = new Graph(numOfInsts + 2);
-    map<int, int> reg_dict; // reg_dict[reg] = last_write_op by index 
-    map<int, bool> no_other_dep;
-    int entry = g->entry_index;
-    int exit = g->exit_index;
-    bool a[3082];
+    // map<int, int> reg_dict; // reg_dict[reg] = last_write_op by index 
+    // map<int, bool> no_other_dep;
+    int reg_dict[MAX_REG];
+    bool no_other_dep[MAX_REG];
+    int entry = (*g).entry_index;
+    int exit = (*g).exit_index;
     int i;
     for(i = 0; i < MAX_REG; i++) {
         reg_dict[i] = NO_WRITE_OP;
@@ -221,7 +222,6 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
     for(i = 0; i < numOfInsts; i++){
         int opcode = progTrace[i].opcode;
         if(no_other_dep[i]) {
-            a[i] = false;
             cout << i << endl;
             (*g).addEdge(exit, i, opsLatency[opcode]);
         }
@@ -262,17 +262,17 @@ int getProgDepth(ProgCtx ctx) {
     int exit = (*g).exit_index;
     int dist[(*g).V];
     (*g).longestPath(exit, dist);
-    cout << getInstDepth(ctx, 3071) << endl;
-    cout << getInstDepth(ctx, 9) << endl;
-    cout << getInstDepth(ctx, 11) << endl;
-    cout << getInstDepth(ctx, 16) << endl;
-    cout << getInstDepth(ctx, 17) << endl;
-    cout << getInstDepth(ctx, 18) << endl;
-    cout << getInstDepth(ctx, 19) << endl;
-    cout << getInstDepth(ctx, 20) << endl;
-    cout << getInstDepth(ctx, 22) << endl;
-    cout << getInstDepth(ctx, 23) << endl;
-    cout << getInstDepth(ctx, 28) << endl;
+    // cout << getInstDepth(ctx, 3071) << endl;
+    // cout << getInstDepth(ctx, 9) << endl;
+    // cout << getInstDepth(ctx, 11) << endl;
+    // cout << getInstDepth(ctx, 16) << endl;
+    // cout << getInstDepth(ctx, 17) << endl;
+    // cout << getInstDepth(ctx, 18) << endl;
+    // cout << getInstDepth(ctx, 19) << endl;
+    // cout << getInstDepth(ctx, 20) << endl;
+    // cout << getInstDepth(ctx, 22) << endl;
+    // cout << getInstDepth(ctx, 23) << endl;
+    // cout << getInstDepth(ctx, 28) << endl;
     
 
     (*g).displayEdges();
