@@ -13,7 +13,7 @@ using namespace std;
 // Graph is represented using adjacency list. Every
 // node of adjacency list contains vertex number of
 // the vertex to which edge connects. It also
-// contains weight of the edge
+// contains weight of the edge as clock cycle for specific node
 class AdjListNode {
     int v;
     int weight;
@@ -40,6 +40,7 @@ class Graph {
     // A function used by longestPath
     void topologicalSortUtil(int v, bool visited[],
                              stack<int>& Stack);
+    //function used by displayEdge                         
     void showList(int src, list<AdjListNode> lt);
 public:
     int V; // No. of vertices' 
@@ -52,10 +53,12 @@ public:
     ~Graph(); // Destructor
     // function to add an edge to graph
     void addEdge(int u, int v, double weight);
+    //function to print graph for debug
     void displayEdges();
    
     // Finds longest distances from given source vertex
     void longestPath(int s, int dist[]);
+    //function used by getInstDeps function
     pair<int, int> getDeps(unsigned int theInst);
 };
    
@@ -89,13 +92,14 @@ void Graph::showList(int src, list<AdjListNode> lt) {
 }
 pair<int, int> Graph::getDeps(unsigned int theInst) {
         pair<int, int> deps;
+        // default values
         deps.first = -1;
         deps.second = -1;
         list<AdjListNode> lt = adj[theInst];
         list<AdjListNode> :: iterator i;
         for(i = lt.begin(); i != lt.end(); i++) {
             double dist = (*i).getDist() - (*i).getWeight(); 
-            if(dist > 0.2) {
+            if(dist > 0.2) { 
                 deps.second = (*i).getV();
                 if(deps.second == entry_index){
                     deps.second = -1;
@@ -179,9 +183,9 @@ void Graph::longestPath(int s, int dist[])
 }
 
 ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[], unsigned int numOfInsts) {
-    Graph* g = new Graph(numOfInsts + 2);
-    int reg_dict[MAX_REG];
-    bool no_other_dep[numOfInsts + 2];
+    Graph* g = new Graph(numOfInsts + 2);//include exit and entry nodes 
+    int reg_dict[MAX_REG]; // used to mark which reg was update last the index reg
+    bool no_other_dep[numOfInsts + 2];//used to mark if index reg depends on other op
     int entry = (*g).entry_index;
     int exit = (*g).exit_index;
     int i;
@@ -206,12 +210,13 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             no_other_dep[last_write_op] = false;
             no_dep = false;    
         }
-        if(no_dep) { // for entry edge
+        if(no_dep) { // for entry node
             (*g).addEdge(i, entry, 0);
             no_other_dep[entry] = false;
         }
         reg_dict[progTrace[i].dstIdx] = i; //update dict[dst_reg] last write op 
     }
+    //for exit node
     for(i = 0; i < numOfInsts; i++){
         int opcode = progTrace[i].opcode;
         if(no_other_dep[i]) {
