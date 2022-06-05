@@ -36,7 +36,7 @@ public:
 // representation
 class Graph {
     // Pointer to an array containing adjacency lists
-    list<AdjListNode> *adj;
+    list<AdjListNode>* adj;
     // A function used by longestPath
     void topologicalSortUtil(int v, bool visited[],
                              stack<int>& Stack);
@@ -217,7 +217,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
             (*g).addEdge(exit, i, opsLatency[opcode]);
         }
     }
-    return g;
+    return &g;
 }
 
 void freeProgCtx(ProgCtx ctx) {
