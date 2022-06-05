@@ -212,6 +212,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
         }
         if(no_dep) { // for entry edge
             (*g).addEdge(i, entry, 0);
+            no_other_dep[entry] = false;
         }
         reg_dict[progTrace[i].dstIdx] = i; //update dict[dst_reg] last write op 
     }
