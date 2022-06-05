@@ -174,10 +174,10 @@ void Graph::longestPath(int s, int dist[])
                     dist[i->getV()] = dist[u] + i->getWeight();
             }
         }
-        if(dist[entry_index] != NINF) {
-            cout << dist[entry_index] << endl; 
-        }
-        cout <<"A" << endl;
+        // if(dist[entry_index] != NINF) {
+        //     cout << dist[entry_index] << endl; 
+        // }
+        // cout <<"A" << endl;
     }     
     delete [] visited;
 }
@@ -252,5 +252,14 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
 int getProgDepth(ProgCtx ctx) {
     Graph* g = (Graph*)ctx;
     int exit = (*g).exit_index;
-    return getInstDepth(ctx, exit);
+    int dist[(*g).V];
+    (*g).longestPath(exit, dist);
+    int max_idx = exit;
+    for (int i = 0; i < (*g).V; i++){
+        cout << dist[i] << endl;
+        if (dist[i] > dist[max_idx]) {
+            max_idx = i;
+        }
+    }
+    return dist[max_idx];
 }
