@@ -255,9 +255,9 @@ int getProgDepth(ProgCtx ctx) {
     int exit = (*g).exit_index;
     int dist[(*g).V];
     (*g).longestPath(exit, dist);
+    (*g).displayEdges();
     int max_idx = exit;
     for (int i = 0; i < (*g).V; i++){
-        cout << dist[i] << endl;
         if (dist[i] > dist[max_idx]) {
             max_idx = i;
         }
