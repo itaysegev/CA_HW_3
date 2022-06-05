@@ -97,9 +97,16 @@ pair<int, int> Graph::getDeps(unsigned int theInst) {
             double dist = (*i).getDist() - (*i).getWeight(); 
             if(dist > 0.2) {
                 deps.second = (*i).getV();
+                if(deps.second == entry_index){
+                    deps.second = -1;
+                }
             }
             else {
                 deps.first = (*i).getV();
+                if(deps.first == entry_index){
+                    deps.first = -1;
+                }
+                
             } 
         }
         return deps; 
