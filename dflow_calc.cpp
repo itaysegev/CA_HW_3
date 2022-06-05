@@ -36,14 +36,15 @@ public:
 // representation
 class Graph {
     // Pointer to an array containing adjacency lists
-    list<AdjListNode>* adj;
+    list<AdjListNode> *adj;
     // A function used by longestPath
     void topologicalSortUtil(int v, bool visited[],
                              stack<int>& Stack);
     void showList(int src, list<AdjListNode> lt);
 public:
     int V; // No. of vertices' 
-    int entry_index, exit_index;
+    int entry_index;
+    int exit_index;
     Graph(int V); // Constructor
     Graph() {
         V = 0;
