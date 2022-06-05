@@ -222,9 +222,6 @@ int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     int dist[(*g).V];
     (*g).longestPath(theInst, dist);
     return dist[(*g).entry_index];
-    // g.DijkstraAlgo(dist, theInst);
-    // return  (-1 * dist[g.entry_index]);
-    
 }
 
 int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2DepInst) {
@@ -235,13 +232,12 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = (*g).getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
-    // (*g).displayEdges();
     return 0;
 }
 
 int getProgDepth(ProgCtx ctx) {
+    Graph* g = (Graph*)ctx;
     // Graph g = *(Graph*)ctx;
-    // int exit = g.exit_index;
-    // return getInstDepth(ctx, exit);
-    return -1;
+    int exit = (*g).exit_index;
+    return getInstDepth(ctx, exit);
 }
