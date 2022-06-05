@@ -255,12 +255,17 @@ int getProgDepth(ProgCtx ctx) {
     int exit = (*g).exit_index;
     int dist[(*g).V];
     (*g).longestPath(exit, dist);
+    cout << getInstDepth(ctx, 3071) << endl;
+    cout << getInstDepth(ctx, 1) << endl;
+    cout << getInstDepth(ctx, 18) << endl;;
+    cout << getInstDepth(ctx, 22) << endl;;
+
     (*g).displayEdges();
     int max_idx = exit;
-    for (int i = 0; i < (*g).V; i++){
-        if (dist[i] > dist[max_idx]) {
-            max_idx = i;
-        }
-    }
+    // for (int i = 0; i < (*g).V; i++){
+    //     if (dist[i] > dist[max_idx]) {
+    //         max_idx = i;
+    //     }
+    // }
     return dist[max_idx];
 }
