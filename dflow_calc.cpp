@@ -222,11 +222,12 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
         int opcode = progTrace[i].opcode;
         if(no_other_dep[i]) {
             a[i] = false;
+            cout << i << endl;
             (*g).addEdge(exit, i, opsLatency[opcode]);
         }
-        if(!a[i]){
-            cout << i << endl;
-        }
+        // if(!a[i]){
+        //     cout << i << endl;
+        // }
     }
     return g;
 }
@@ -262,9 +263,17 @@ int getProgDepth(ProgCtx ctx) {
     int dist[(*g).V];
     (*g).longestPath(exit, dist);
     cout << getInstDepth(ctx, 3071) << endl;
-    cout << getInstDepth(ctx, 1) << endl;
-    cout << getInstDepth(ctx, 18) << endl;;
-    cout << getInstDepth(ctx, 22) << endl;;
+    cout << getInstDepth(ctx, 9) << endl;
+    cout << getInstDepth(ctx, 11) << endl;
+    cout << getInstDepth(ctx, 16) << endl;
+    cout << getInstDepth(ctx, 17) << endl;
+    cout << getInstDepth(ctx, 18) << endl;
+    cout << getInstDepth(ctx, 19) << endl;
+    cout << getInstDepth(ctx, 20) << endl;
+    cout << getInstDepth(ctx, 22) << endl;
+    cout << getInstDepth(ctx, 23) << endl;
+    cout << getInstDepth(ctx, 28) << endl;
+    
 
     (*g).displayEdges();
     int max_idx = exit;
