@@ -63,7 +63,7 @@ Graph::Graph(int V) // Constructor
     this->V = V;
     this->entry_index = V - 2;
     this->exit_index = V - 1;
-    adj = new list<AdjListNode>[V];
+    this->adj = new list<AdjListNode>[V];
 }
  
 Graph::~Graph() // Destructor
