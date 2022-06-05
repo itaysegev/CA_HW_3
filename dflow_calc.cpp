@@ -193,10 +193,11 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
     int i;
     for(i = 0; i < MAX_REG; i++) {
         reg_dict[i] = NO_WRITE_OP;
-        no_other_dep[i] = true; // for exit edge
+        // no_other_dep[i] = true; // for exit edge
     }
     for(i = 0; i < numOfInsts; i++){
         bool no_dep = true;
+        no_other_dep[i] = true;
         int opcode;
         if(reg_dict[progTrace[i].src1Idx] != NO_WRITE_OP){
             int last_write_op = reg_dict[progTrace[i].src1Idx];
@@ -283,5 +284,4 @@ int getProgDepth(ProgCtx ctx) {
     //     }
     // }
     return 0;
-   
 }
