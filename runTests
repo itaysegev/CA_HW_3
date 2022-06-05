@@ -50,6 +50,7 @@ for i in `seq 1 $number_of_example_files` ; do
     
    	else 
     		echo -e "     Failed."
+			diff $OUT_DIR/'opcode'$j'-example'$i'.out' $MY_OUT_DIR_NAME/'opcode'$j'-example'$i'.myout
 	fi
    done
 done
