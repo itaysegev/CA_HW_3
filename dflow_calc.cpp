@@ -45,6 +45,9 @@ public:
     int V; // No. of vertices' 
     int entry_index, exit_index;
     Graph(int V); // Constructor
+    Graph() {
+        V = 0;
+    }
     ~Graph(); // Destructor
     // function to add an edge to graph
     void addEdge(int u, int v, double weight);
@@ -221,7 +224,7 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
-    // Graph g = *(Graph*)ctx;
+    Graph g = *(Graph*)ctx;
     // int dist[g.V];
     // g.longestPath(theInst);
     // g.DijkstraAlgo(dist, theInst);
