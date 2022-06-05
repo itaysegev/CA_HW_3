@@ -221,6 +221,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
     for(i = 0; i < numOfInsts; i++){
         int opcode = progTrace[i].opcode;
         if(no_other_dep[i]) {
+            a[i] = false;
             (*g).addEdge(exit, i, opsLatency[opcode]);
         }
         if(!a[i]){
