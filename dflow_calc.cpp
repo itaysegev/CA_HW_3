@@ -35,16 +35,12 @@ public:
 // Class to represent a graph using adjacency list
 // representation
 class Graph {
-   
-    
     // Pointer to an array containing adjacency lists
     list<AdjListNode>* adj;
-   
     // A function used by longestPath
     void topologicalSortUtil(int v, bool visited[],
                              stack<int>& Stack);
     void showList(int src, list<AdjListNode> lt);
-   
 public:
     int V; // No. of vertices' 
     int entry_index, exit_index;
@@ -165,7 +161,6 @@ void Graph::longestPath(int s)
         list<AdjListNode>::iterator i;
         if (dist[u] != NINF) {
             for (i = adj[u].begin(); i != adj[u].end(); ++i){
-             
                 if (dist[i->getV()] < dist[u] + i->getWeight())
                     dist[i->getV()] = dist[u] + i->getWeight();
             }
@@ -226,7 +221,7 @@ void freeProgCtx(ProgCtx ctx) {
 }
 
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
-    // Graph g = *(Graph*)ctx;
+    Graph g = *(Graph*)ctx;
     // int dist[g.V];
     // g.longestPath(theInst);
     // g.DijkstraAlgo(dist, theInst);
