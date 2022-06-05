@@ -262,7 +262,7 @@ int getProgDepth(ProgCtx ctx) {
     int exit = (*g).exit_index;
     // int dist[(*g).V];
     // (*g).longestPath(exit, dist);
-    // return getInstDepth(ctx, exit);
+    return getInstDepth(ctx, exit);
     // cout << getInstDepth(ctx, 3071) << endl;
     // cout << getInstDepth(ctx, 9) << endl;
     // cout << getInstDepth(ctx, 11) << endl;
@@ -283,5 +283,5 @@ int getProgDepth(ProgCtx ctx) {
     //         max_idx = i;
     //     }
     // }
-    return 0;
+    // return 0;
 }
