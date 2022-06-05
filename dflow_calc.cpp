@@ -62,8 +62,8 @@ public:
 Graph::Graph(int V) // Constructor
 {
     this->V = V;
-    this->entry_index = V - 2;
-    this->exit_index = V - 1;
+    this->entry_index = V - 1;
+    this->exit_index = V - 2;
     this->adj = new list<AdjListNode>[V];
 }
  
