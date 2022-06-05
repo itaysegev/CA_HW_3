@@ -174,7 +174,10 @@ void Graph::longestPath(int s, int dist[])
                     dist[i->getV()] = dist[u] + i->getWeight();
             }
         }
-        cout << dist[entry_index] << endl;
+        if(dist[entry_index] != NINF) {
+            cout << dist[entry_index] << endl; 
+        }
+        cout <<"A" << endl;
     }     
     delete [] visited;
 }
