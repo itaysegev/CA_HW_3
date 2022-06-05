@@ -55,7 +55,7 @@ public:
     void displayEdges();
    
     // Finds longest distances from given source vertex
-    void longestPath(int s);
+    void longestPath(int s, int dist[]);
     pair<int, int> getDeps(unsigned int theInst);
 };
    
@@ -134,11 +134,9 @@ void Graph::topologicalSortUtil(int v, bool visited[],
 // The function to find longest distances from a given vertex.
 // It uses recursive topologicalSortUtil() to get topological
 // sorting.
-void Graph::longestPath(int s)
+void Graph::longestPath(int s, int dist[])
 {
     stack<int> Stack;
-    int dist[V];
-   
     // Mark all the vertices as not visited
     bool* visited = new bool[V];
     for (int i = 0; i < V; i++)
@@ -227,7 +225,11 @@ void freeProgCtx(ProgCtx ctx) {
 int getInstDepth(ProgCtx ctx, unsigned int theInst) {
     Graph* g = (Graph*)ctx;
     int dist[(*g).V];
-    (*g).longestPath(theInst);
+    
+    (*g).longestPath(theInst, dist);
+    for (int i = 0; i < (*g).V; i++)
+        (dist[i] == NINF) ? cout << "INF " : cout << dist[i] << " ";
+     
     // g.DijkstraAlgo(dist, theInst);
     // return  (-1 * dist[g.entry_index]);
     return -1;
@@ -241,7 +243,7 @@ int getInstDeps(ProgCtx ctx, unsigned int theInst, int *src1DepInst, int *src2De
     pair<int, int> deps = (*g).getDeps(theInst);
     *src1DepInst = deps.first;
     *src2DepInst = deps.second;
-    (*g).displayEdges();
+    // (*g).displayEdges();
     return 0;
 }
 
