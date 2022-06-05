@@ -188,7 +188,7 @@ ProgCtx analyzeProg(const unsigned int opsLatency[], const InstInfo progTrace[],
     bool no_other_dep[numOfInsts + 2];//used to mark if index reg depends on other op
     int entry = (*g).entry_index;
     int exit = (*g).exit_index;
-    int i;
+    unsigned int i;
     for(i = 0; i < MAX_REG; i++) {
         reg_dict[i] = NO_WRITE_OP;
     }
