@@ -43,7 +43,7 @@ class Graph {
     //function used by displayEdge                         
     void showList(int src, list<AdjListNode> lt);
 public:
-    int V; // No. of vertices' 
+    unsigned int V; // No. of vertices' 
     int entry_index;
     int exit_index;
     Graph(int V); // Constructor
