@@ -75,7 +75,7 @@ Graph::~Graph() // Destructor
     delete [] adj;
 }
 void Graph::displayEdges() {
-        for(int i = 0; i < V; i++) {
+        for(unsigned int i = 0; i < V; i++) {
             list<AdjListNode> tempList = adj[i];
             showList(i, tempList);
         }
@@ -150,18 +150,18 @@ void Graph::longestPath(int s, int dist[])
     stack<int> Stack;
     // Mark all the vertices as not visited
     bool* visited = new bool[V];
-    for (int i = 0; i < V; i++)
+    for (unsigned int i = 0; i < V; i++)
         visited[i] = false;
    
     // Call the recursive helper function to store Topological
     // Sort starting from all vertices one by one
-    for (int i = 0; i < V; i++)
+    for (unsigned int i = 0; i < V; i++)
         if (visited[i] == false)
             topologicalSortUtil(i, visited, Stack);
    
     // Initialize distances to all vertices as infinite and
     // distance to source as 0
-    for (int i = 0; i < V; i++)
+    for (unsigned int i = 0; i < V; i++)
         dist[i] = NINF;
     dist[s] = 0;
     // Process vertices in topological order
